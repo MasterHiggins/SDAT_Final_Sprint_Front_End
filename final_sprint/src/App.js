@@ -1,24 +1,27 @@
-import logo from './logo.svg';
 import './App.css';
+import {useCallback, useEffect, useState} from "react";
+// import {Route, Routes} from "react-router-dom";
+import { fetchCity } from './utills/apiCalls';
+import CityList from './components/CityList';
+
 
 function App() {
+  const [citys,setCitys] = useState([])
+
+  const loadCity = useCallback(async () => {
+    const res = await fetchCity();
+    setCitys(res)
+  },[])
+  useEffect(()=>{
+    loadCity().then(r=>console.log('city loaded'))
+  })  
+
+  
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+          
+        <CityList citys={citys}/> 
+
   );
 }
 
