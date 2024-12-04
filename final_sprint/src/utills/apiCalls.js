@@ -10,3 +10,14 @@ export const fetchCity = async ()=>{
         throw error
     }
 }
+
+
+export const fetchAirport = async ()=>{
+    try {
+        const res = await axios.get(`${BACKEND_BASE_URL}/airports`)
+        return res.data
+    } catch (error) {
+        console.error('error fetching airport',error)
+        throw error
+    }
+}
