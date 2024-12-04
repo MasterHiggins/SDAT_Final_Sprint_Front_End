@@ -4,6 +4,8 @@ import {useCallback, useEffect, useState} from "react";
 import { fetchAirport, fetchCity } from './utills/apiCalls';
 import CityList from './components/CityList';
 import AirportList from './components/AirportList';
+import CitySearch from './components/CitySearch';
+
 
 
 function App() {
@@ -32,7 +34,8 @@ function App() {
   return (
         
         // <CityList citys={citys}/> 
-      <AirportList airports={airports}/>
+      // <AirportList airports={airports}/>
+      <CitySearch/>
   );
 }
 
