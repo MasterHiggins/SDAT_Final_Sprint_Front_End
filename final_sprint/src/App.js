@@ -1,41 +1,38 @@
-import './App.css';
-import {useCallback, useEffect, useState} from "react";
-// import {Route, Routes} from "react-router-dom";
-import { fetchAirport, fetchCity } from './utills/apiCalls';
-import CityList from './components/CityList';
-import AirportList from './components/AirportList';
-import CitySearch from './components/CitySearch';
-
-
+import "./App.css";
+import { useCallback, useEffect, useState } from "react";
+import { fetchAirport, fetchCity } from "./utills/apiCalls";
+import CityList from "./components/CityList";
+import AirportList from "./components/AirportList";
+import CitySearch from "./components/CitySearch";
 
 function App() {
-  const [citys,setCitys] = useState([])
+  const [citys, setCitys] = useState([]);
+  const [airports, setAirports] = useState([]);
 
   const loadCity = useCallback(async () => {
     const res = await fetchCity();
-    setCitys(res)
-  },[])
-  useEffect(()=>{
-    loadCity().then(r=>console.log('city loaded'))
-  },[])  
+    setCitys(res);
+  }, []);
 
-  const [airports,setAirports] = useState([])
+  useEffect(() => {
+    loadCity().then((r) => console.log("city loaded"));
+  }, [loadCity]);
 
   const loadAirport = useCallback(async () => {
     const res = await fetchAirport();
-    setAirports(res)
-  },[])
-  useEffect(()=>{
-    loadAirport().then(r=>console.log('airport loaded'))
-  },[])  
+    setAirports(res);
+  }, []);
 
-  
+  useEffect(() => {
+    loadAirport().then((r) => console.log("airport loaded"));
+  }, [loadAirport]);
 
   return (
-        
-        // <CityList citys={citys}/> 
-      // <AirportList airports={airports}/>
-      <CitySearch/>
+    <div>
+      <CityList citys={citys} />
+      <AirportList airports={airports} />
+      <CitySearch />
+    </div>
   );
 }
 
