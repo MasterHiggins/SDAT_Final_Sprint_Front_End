@@ -6,6 +6,7 @@ import AirportList from "./components/AirportList";
 import CitySearch from "./components/CitySearch";
 import FlightList from "./components/FlightsList";
 import FlightSearch from "./components/FlightsSearch";
+import AddCity from "./components/AddCity";
 
 
 
@@ -48,6 +49,7 @@ function App() {
       <FlightList flights={flights}/>
       <CitySearch />
       <FlightSearch/>
+      <AddCity/>
     </div>
   );
 }
