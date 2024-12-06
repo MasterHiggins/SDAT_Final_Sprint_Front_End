@@ -42,3 +42,12 @@ export const fetchFlight = async ()=>{
     }
 }
 
+export const fetchFlightById = async (id)=>{
+    try {
+        const res = await axios.get(`${BACKEND_BASE_URL}/flights/${id}`)
+        return res.data
+    } catch (error) {
+        console.error('error fetching flights',error)
+        throw error
+    }
+}
