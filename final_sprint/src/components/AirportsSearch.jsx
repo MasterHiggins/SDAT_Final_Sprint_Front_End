@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { fetchAirport } from '../utills/apiCalls';  //Temporary import
+import { fetchAirport } from '../utills/apiCalls';  //Issue with import?
 
 const AirportSearch = () => {
     const [airportId, setAirportId] = useState('');
@@ -18,8 +18,7 @@ const AirportSearch = () => {
         setAirport(null); 
 
         try {
-            const airportData = await fetchAirport(airportId); 
-            setAirport(airportData);
+            setAirport(response.data);
         } catch (error) {
             console.error('Error fetching airport:', error); 
             setError('Airport not found or API error');
@@ -44,8 +43,10 @@ const AirportSearch = () => {
             {error && <p style={{ color: 'red' }}>{error}</p>}
             
             {airport ? (
-                <div className="airport-search">
+                <div>
                     <h2>{airport.name}</h2>
+                    <p>Code: {airport.code}</p>
+                    <p>City: {airport.city.name}</p>
                 </div>
             ) : (
                 !loading && <p>Please enter an airport ID.</p>
