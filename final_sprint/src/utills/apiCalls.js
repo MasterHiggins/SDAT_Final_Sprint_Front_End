@@ -51,3 +51,17 @@ export const fetchFlightById = async (id)=>{
         throw error
     }
 }
+
+export const addCity = async (cityData)=>{
+    try {
+        const res = await axios.post(`${BACKEND_BASE_URL}/cities`,cityData,{
+            headers:{'Content-Type': 'application/json'}
+        })
+        console.log("wow")
+        return res.data;
+    } catch (error) {
+        console.error('error when adding city', error)
+        throw error
+    }
+}
+
