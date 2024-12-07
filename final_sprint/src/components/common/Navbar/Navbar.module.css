@@ -3,7 +3,7 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-  background: linear-gradient(to right, #1a2a6c, #2a4858);
+  background: linear-gradient(to left, #1a2a6c, #3d95c4);
 }
 
 .navbar {
