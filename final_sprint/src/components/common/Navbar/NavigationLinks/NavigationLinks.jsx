@@ -7,9 +7,6 @@ function NavigationLinks({ onLinkClick }) {
       <Link to="/" onClick={onLinkClick}>
         Flight Board
       </Link>
-      <Link to="/admin" onClick={onLinkClick}>
-        Admin Dashboard
-      </Link>
       <Link to="/search" onClick={onLinkClick}>
         Search
       </Link>
