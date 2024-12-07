@@ -1,7 +1,7 @@
 import { useState } from "react";
-import Logo from "./Logo";
-import NavigationLinks from "./NavigationLinks";
-import AdminButton from "./AdminButton";
+import Logo from "./Logo/Logo";
+import NavigationLinks from "./NavigationLinks/NavigationLinks";
+import AdminButton from "./AdminButton/AdminButton";
 import { FaBars, FaTimes } from "react-icons/fa";
 import styles from "./Navbar.module.css";
 
