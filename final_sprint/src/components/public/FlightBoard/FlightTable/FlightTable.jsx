@@ -2,7 +2,7 @@ import { useState } from "react";
 import styles from "./FlightTable.module.css";
 import FlightRow from "../FlightRow/FlightRow";
 
-const FlightTable = ({ flights }) => {
+const FlightTable = ({ flights, viewType }) => {
   const [expandedFlights, setExpandedFlights] = useState(new Set());
 
   const toggleFlightExpansion = (flightNumber) => {
@@ -25,12 +25,19 @@ const FlightTable = ({ flights }) => {
     );
   }
 
+  // Adjust header text based on view type
+  const getLocationHeader = () => {
+    if (viewType === "departures") return "Destination";
+    if (viewType === "arrivals") return "Origin";
+    return "Location";
+  };
+
   return (
     <div className={styles.board}>
       <div className={styles.header}>
         <div className={styles.time}>Time</div>
         <div className={styles.flight}>Flight</div>
-        <div className={styles.destination}>Destination</div>
+        <div className={styles.destination}>{getLocationHeader()}</div>
         <div className={styles.gate}>Gate</div>
         <div className={styles.status}>Status</div>
       </div>
@@ -39,6 +46,7 @@ const FlightTable = ({ flights }) => {
           <FlightRow
             key={flight.flightNumber}
             flight={flight}
+            viewType={viewType}
             isExpanded={expandedFlights.has(flight.flightNumber)}
             onToggleExpand={() => toggleFlightExpansion(flight.flightNumber)}
           />

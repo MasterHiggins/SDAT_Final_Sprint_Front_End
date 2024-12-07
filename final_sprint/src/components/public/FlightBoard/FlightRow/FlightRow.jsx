@@ -1,12 +1,24 @@
-import { useState } from "react";
 import styles from "./FlightRow.module.css";
+import { formatTime, formatDate } from "../../../../utils/dateUtils";
 
-const FlightRow = ({ flight, isExpanded, onToggleExpand }) => {
-  const formatTime = (dateTime) => {
-    return new Date(dateTime).toLocaleTimeString([], {
-      hour: "2-digit",
-      minute: "2-digit",
-    });
+const FlightRow = ({ flight, viewType, isExpanded, onToggleExpand }) => {
+  const getDisplayTime = () => {
+    const datetime =
+      viewType === "arrivals" ? flight.arrivalTime : flight.departureTime;
+    return {
+      time: formatTime(datetime),
+      date: formatDate(datetime),
+    };
+  };
+
+  const getDisplayLocation = () => {
+    return viewType === "arrivals"
+      ? flight.departureAirport
+      : flight.arrivalAirport;
+  };
+
+  const getDisplayGate = () => {
+    return viewType === "arrivals" ? flight.arrivalGate : flight.departureGate;
   };
 
   const getStatusClass = (status) => {
@@ -19,19 +31,24 @@ const FlightRow = ({ flight, isExpanded, onToggleExpand }) => {
     return statusClasses[status] || styles.default;
   };
 
+  const timeInfo = getDisplayTime();
+
   return (
     <div className={styles.rowContainer}>
       <div
         className={`${styles.row} ${isExpanded ? styles.expanded : ""}`}
         onClick={onToggleExpand}
       >
-        <div className={styles.time}>{formatTime(flight.departureTime)}</div>
-        <div className={styles.flight}>
-          <span className={styles.flightNumber}>{flight.flightNumber}</span>
-          <span className={styles.airline}>{flight.airline}</span>
+        <div className={styles.time}>
+          <div className={styles.timeValue}>{timeInfo.time}</div>
+          <div className={styles.date}>{timeInfo.date}</div>
         </div>
-        <div className={styles.destination}>{flight.arrivalAirport}</div>
-        <div className={styles.gate}>{flight.departureGate}</div>
+        <div className={styles.flight}>
+          <div className={styles.flightNumber}>{flight.flightNumber}</div>
+          <div className={styles.airline}>{flight.airline}</div>
+        </div>
+        <div className={styles.destination}>{getDisplayLocation()}</div>
+        <div className={styles.gate}>{getDisplayGate()}</div>
         <div className={`${styles.status} ${getStatusClass(flight.status)}`}>
           {flight.status}
         </div>
@@ -43,20 +60,22 @@ const FlightRow = ({ flight, isExpanded, onToggleExpand }) => {
             <div className={styles.detailSection}>
               <h4>Departure</h4>
               <p>Time: {formatTime(flight.departureTime)}</p>
-              <p>Gate: {flight.departureGate}</p>
+              <p>Date: {formatDate(flight.departureTime)}</p>
               <p>Airport: {flight.departureAirport}</p>
+              <p>Gate: {flight.departureGate}</p>
             </div>
             <div className={styles.detailSection}>
               <h4>Arrival</h4>
               <p>Time: {formatTime(flight.arrivalTime)}</p>
-              <p>Gate: {flight.arrivalGate}</p>
+              <p>Date: {formatDate(flight.arrivalTime)}</p>
               <p>Airport: {flight.arrivalAirport}</p>
+              <p>Gate: {flight.arrivalGate}</p>
             </div>
             <div className={styles.detailSection}>
               <h4>Flight Details</h4>
+              <p>Airline: {flight.airline}</p>
               <p>Aircraft Capacity: {flight.aircraftCapacity}</p>
               <p>Passengers: {flight.numberOfPassengers}</p>
-              <p>Airline: {flight.airline}</p>
             </div>
           </div>
         </div>

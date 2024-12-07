@@ -105,3 +105,42 @@
   margin: 0.5rem 0;
   font-size: 0.9rem;
 }
+.time {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.timeValue {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.date {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+.status {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.scheduled {
+  color: #007bff; /* Bright blue like in prototype */
+}
+
+.active {
+  color: #28a745; /* Bright green */
+}
+
+.delayed {
+  color: #ffc107; /* Warning yellow */
+}
+
+.cancelled {
+  color: #dc3545; /* Red for cancelled flights */
+}
+
+.default {
+  color: #6c757d; /* Gray for any other status */
+}

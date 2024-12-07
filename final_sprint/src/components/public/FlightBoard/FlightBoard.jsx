@@ -29,15 +29,6 @@ const FlightBoard = () => {
     }
   };
 
-  // Updated filtering logic based on destination/source airport
-  const filteredFlights = flights.filter((flight) => {
-    // For now, we'll consider all flights as departures since we're showing destination
-    // This can be updated once we have more specific departure/arrival data
-    if (activeFilter === "departures") return true;
-    if (activeFilter === "arrivals") return false;
-    return true; // Show all flights when "all" is selected
-  });
-
   if (loading) {
     return <LoadingSpinner message="Loading flights..." />;
   }
@@ -53,7 +44,7 @@ const FlightBoard = () => {
         activeFilter={activeFilter}
         onFilterChange={setActiveFilter}
       />
-      <FlightTable flights={filteredFlights} />
+      <FlightTable flights={flights} viewType={activeFilter} />
     </div>
   );
 };
