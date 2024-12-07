@@ -1,0 +1,60 @@
+.board {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 1fr 0.5fr 0.7fr;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.time,
+.flight,
+.destination,
+.gate,
+.status {
+  padding: 0 0.5rem;
+}
+
+.noFlights {
+  text-align: center;
+  padding: 2rem;
+  color: #6c757d;
+  background: #f8f9fa;
+  border-radius: 8px;
+  margin: 1rem 0;
+}
+
+.flightsList {
+  max-height: 70vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #888 #f1f1f1;
+}
+
+.flightsList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.flightsList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.flightsList::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 3px;
+}
+
+.flightsList::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

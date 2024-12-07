@@ -1,0 +1,107 @@
+.rowContainer {
+  border-bottom: 1px solid #e9ecef;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 1fr 0.5fr 0.7fr;
+  padding: 1rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.row:hover {
+  background-color: #f8f9fa;
+}
+
+.row.expanded {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.time,
+.flight,
+.destination,
+.gate,
+.status {
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.flightNumber {
+  font-weight: 500;
+}
+
+.airline {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 2px;
+}
+
+.status {
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+  display: inline-block;
+}
+
+.scheduled {
+  color: #0d6efd;
+  background-color: #e7f1ff;
+}
+
+.active {
+  color: #198754;
+  background-color: #e8f4ed;
+}
+
+.delayed {
+  color: #ffc107;
+  background-color: #fff8e5;
+}
+
+.cancelled {
+  color: #dc3545;
+  background-color: #fbe9eb;
+}
+
+.default {
+  color: #6c757d;
+  background-color: #f8f9fa;
+}
+
+.expandedContent {
+  background-color: #f8f9fa;
+  overflow: hidden;
+  transition: max-height 0.3s ease-in-out;
+  padding: 1rem;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.detailSection {
+  padding: 1rem;
+}
+
+.detailSection h4 {
+  color: #495057;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.detailSection p {
+  color: #6c757d;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}

@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/common/Navbar/Navbar";
+import FlightBoard from "./components/public/FlightBoard/FlightBoard";
 
 function App() {
   return (
@@ -7,7 +8,7 @@ function App() {
       <div className="App">
         <Navbar />
         <Routes>
-          <Route path="/" element={<div>Flight System</div>} />
+          <Route path="/" element={<FlightBoard />} />
         </Routes>
       </div>
     </Router>
