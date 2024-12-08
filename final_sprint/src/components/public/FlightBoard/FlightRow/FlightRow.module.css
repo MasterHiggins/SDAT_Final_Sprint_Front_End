@@ -4,7 +4,8 @@
 
 .row {
   display: grid;
-  grid-template-columns: 0.8fr 1fr 1fr 0.5fr 0.7fr;
+  /* Reduce destination column ratio to tighten up right side spacing */
+  grid-template-columns: 0.8fr 1fr 0.8fr 0.5fr 0.8fr;
   padding: 1rem;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -21,13 +22,20 @@
 
 .time,
 .flight,
-.destination,
 .gate,
 .status {
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Separate styling for destination */
+.destination {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 0rem; /* Reduced right padding */
 }
 
 .flightNumber {
@@ -90,7 +98,7 @@
 }
 
 .detailSection h4 {
-  color: #495057;
+  color: #007bff;
   margin-bottom: 1rem;
   font-weight: 600;
 }
