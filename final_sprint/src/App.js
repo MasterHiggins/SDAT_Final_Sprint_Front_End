@@ -13,6 +13,7 @@ function App() {
           <Route path="/" element={<FlightBoard />} />
           <Route path="/search" element={<FlightSearch />} />
           <Route path="/admin" element={<AdminPage />} />
+
         </Routes>
       </div>
     </Router>
