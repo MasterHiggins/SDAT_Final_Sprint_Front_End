@@ -13,22 +13,29 @@ const FlightRow = ({ flight, viewType, isExpanded, onToggleExpand }) => {
 
   const getDisplayLocation = () => {
     return viewType === "arrivals"
-      ? flight.departureAirport
-      : flight.arrivalAirport;
+      ? flight.departureGate // Show origin city for arrivals
+      : flight.arrivalGate; // Show destination city for departures
   };
 
   const getDisplayGate = () => {
-    return viewType === "arrivals" ? flight.arrivalGate : flight.departureGate;
+    return viewType === "arrivals"
+      ? flight.arrivalCity // Show arrival gate (A1)
+      : flight.departureCity; // Show departure gate (B2)
   };
 
   const getStatusClass = (status) => {
+    // Ensure status is a string and uppercase
+    const normalizedStatus = String(status).toUpperCase();
+
     const statusClasses = {
-      SCHEDULED: styles.scheduled,
-      ACTIVE: styles.active,
-      DELAYED: styles.delayed,
-      CANCELLED: styles.cancelled,
+      SCHEDULED: `${styles.status} ${styles.scheduled}`,
+      ACTIVE: `${styles.status} ${styles.active}`,
+      DELAYED: `${styles.status} ${styles.delayed}`,
+      CANCELLED: `${styles.status} ${styles.cancelled}`,
     };
-    return statusClasses[status] || styles.default;
+    return (
+      statusClasses[normalizedStatus] || `${styles.status} ${styles.default}`
+    );
   };
 
   const timeInfo = getDisplayTime();
