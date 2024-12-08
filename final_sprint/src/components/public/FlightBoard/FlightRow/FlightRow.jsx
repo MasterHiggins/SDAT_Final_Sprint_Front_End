@@ -12,23 +12,37 @@ const FlightRow = ({ flight, viewType, isExpanded, onToggleExpand }) => {
   };
 
   const getDisplayLocation = () => {
-    return viewType === "arrivals"
-      ? flight.departureAirport
-      : flight.arrivalAirport;
+    if (viewType === "arrivals") {
+      return {
+        city: flight.departureGate, // Origin city for arrivals
+        airport: flight.departureAirport,
+      };
+    }
+    return {
+      city: flight.arrivalGate, // Destination city for departures
+      airport: flight.arrivalAirport,
+    };
   };
 
   const getDisplayGate = () => {
-    return viewType === "arrivals" ? flight.arrivalGate : flight.departureGate;
+    return viewType === "arrivals"
+      ? flight.arrivalCity // Gate number for arrival
+      : flight.departureCity; // Gate number for departure
   };
 
   const getStatusClass = (status) => {
+    // Ensure status is a string and uppercase
+    const normalizedStatus = String(status).toUpperCase();
+
     const statusClasses = {
-      SCHEDULED: styles.scheduled,
-      ACTIVE: styles.active,
-      DELAYED: styles.delayed,
-      CANCELLED: styles.cancelled,
+      SCHEDULED: `${styles.status} ${styles.scheduled}`,
+      ACTIVE: `${styles.status} ${styles.active}`,
+      DELAYED: `${styles.status} ${styles.delayed}`,
+      CANCELLED: `${styles.status} ${styles.cancelled}`,
     };
-    return statusClasses[status] || styles.default;
+    return (
+      statusClasses[normalizedStatus] || `${styles.status} ${styles.default}`
+    );
   };
 
   const timeInfo = getDisplayTime();
@@ -47,8 +61,15 @@ const FlightRow = ({ flight, viewType, isExpanded, onToggleExpand }) => {
           <div className={styles.flightNumber}>{flight.flightNumber}</div>
           <div className={styles.airline}>{flight.airline}</div>
         </div>
-        <div className={styles.destination}>{getDisplayLocation()}</div>
-        <div className={styles.gate}>{getDisplayGate()}</div>
+        <div className={styles.destination}>
+          <div className={styles.cityName}>{getDisplayLocation().city}</div>
+          <div className={styles.airportCode}>
+            {getDisplayLocation().airport}
+          </div>
+        </div>
+        <div className={styles.gate}>
+          <div className={styles.gateNumber}>{getDisplayGate()}</div>
+        </div>
         <div className={`${styles.status} ${getStatusClass(flight.status)}`}>
           {flight.status}
         </div>

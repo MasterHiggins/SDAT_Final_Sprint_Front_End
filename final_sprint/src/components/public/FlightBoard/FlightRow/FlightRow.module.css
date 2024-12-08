@@ -4,7 +4,8 @@
 
 .row {
   display: grid;
-  grid-template-columns: 0.8fr 1fr 1fr 0.5fr 0.7fr;
+  /* Reduce destination column ratio to tighten up right side spacing */
+  grid-template-columns: 0.8fr 1fr 0.8fr 0.5fr 0.8fr;
   padding: 1rem;
   transition: all 0.2s ease-in-out;
   cursor: pointer;
@@ -21,13 +22,20 @@
 
 .time,
 .flight,
-.destination,
 .gate,
 .status {
   padding: 0 0.5rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+/* Separate styling for destination */
+.destination {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 0rem; /* Reduced right padding */
 }
 
 .flightNumber {
@@ -50,27 +58,22 @@
 
 .scheduled {
   color: #0d6efd;
-  background-color: #e7f1ff;
 }
 
 .active {
   color: #198754;
-  background-color: #e8f4ed;
 }
 
 .delayed {
   color: #ffc107;
-  background-color: #fff8e5;
 }
 
 .cancelled {
   color: #dc3545;
-  background-color: #fbe9eb;
 }
 
 .default {
   color: #6c757d;
-  background-color: #f8f9fa;
 }
 
 .expandedContent {
@@ -95,7 +98,7 @@
 }
 
 .detailSection h4 {
-  color: #495057;
+  color: #007bff;
   margin-bottom: 1rem;
   font-weight: 600;
 }
@@ -125,22 +128,17 @@
   text-transform: capitalize;
 }
 
-.scheduled {
-  color: #007bff; /* Bright blue like in prototype */
+.cityName {
+  font-weight: 500;
 }
 
-.active {
-  color: #28a745; /* Bright green */
+.airportCode {
+  font-size: 0.875rem;
+  color: #6c757d;
+  margin-top: 2px;
 }
 
-.delayed {
-  color: #ffc107; /* Warning yellow */
-}
-
-.cancelled {
-  color: #dc3545; /* Red for cancelled flights */
-}
-
-.default {
-  color: #6c757d; /* Gray for any other status */
+.gateNumber {
+  font-weight: 500;
+  text-align: center;
 }
