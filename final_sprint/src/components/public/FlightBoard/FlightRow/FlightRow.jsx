@@ -2,6 +2,7 @@ import styles from "./FlightRow.module.css";
 import { formatTime, formatDate } from "../../../../utils/dateUtils";
 
 const FlightRow = ({ flight, viewType, isExpanded, onToggleExpand }) => {
+  // Time display logic remains the same
   const getDisplayTime = () => {
     const datetime =
       viewType === "arrivals" ? flight.arrivalTime : flight.departureTime;
@@ -11,23 +12,25 @@ const FlightRow = ({ flight, viewType, isExpanded, onToggleExpand }) => {
     };
   };
 
+  // Updated location display logic
   const getDisplayLocation = () => {
     if (viewType === "arrivals") {
       return {
-        city: flight.departureGate, // Origin city for arrivals
+        city: flight.departureCity, // Origin city for arrivals
         airport: flight.departureAirport,
       };
     }
     return {
-      city: flight.arrivalGate, // Destination city for departures
+      city: flight.arrivalCity, // Destination city for departures
       airport: flight.arrivalAirport,
     };
   };
 
+  // Updated gate display logic
   const getDisplayGate = () => {
     return viewType === "arrivals"
-      ? flight.arrivalCity // Gate number for arrival
-      : flight.departureCity; // Gate number for departure
+      ? flight.arrivalGate // Gate number for arrival
+      : flight.departureGate; // Gate number for departure
   };
 
   const getStatusClass = (status) => {
