@@ -1,8 +1,10 @@
-import { FaEdit } from "react-icons/fa";
+import { FaEdit,FaTrash } from "react-icons/fa";
 import styles from "./PassengerTable.module.css";
 
 
-const PassengerTable =({passengers,onEdit})=>{
+
+
+const PassengerTable =({passengers,onEdit,onDelete})=>{
     if(!passengers||passengers.length ===0){
         return(
             <p>no passengers</p>
@@ -23,7 +25,10 @@ const PassengerTable =({passengers,onEdit})=>{
                         <div className={styles.elements}> {passenger.firstName} {passenger.lastName}</div>
                         <div className={styles.elements}> {passenger.phoneNumber}</div>
                         <div className={styles.elements}>{passenger.passengerCity} </div>
+                        <div>
                         <FaEdit onClick={()=>{onEdit(passenger)}}/>
+                        <FaTrash onClick={()=>onDelete(passenger.id)}/>
+                        </div>
                     </div>
                 ))}
             </div>

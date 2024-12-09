@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./PassengerPage.module.css"
 import LoadingSpinner from "../../shared/LoadingSpinner/LoadingSpinner";
-import { addPassenger, getPassengers } from "../../../api/services/passengerService";
+import { addPassenger, deletePassenger, getPassengers } from "../../../api/services/passengerService";
 import PassengerTable from "./passengerTable/PassengerTable";
 import AddPassenger from "./addPassenger/AddPassenger";
 import EditPassenger from "./updatePassengerButton/EditPassengerButton";
@@ -49,10 +49,16 @@ const PassengerPage = ()=>{
     await fetchPassengers();
   }
 
-    const handleEditClick = (passenger)=>{
-      setEditingPassenger(passenger)
-      setIsEditModalOpen(true)
-    }
+  const handleEditClick = (passenger)=>{
+    setEditingPassenger(passenger)
+    setIsEditModalOpen(true)
+  }
+
+  const handleDeletePassenger = async (id)=>{
+    await deletePassenger(id)
+    await fetchPassengers();
+  }
+
 
   if (loading) {
     return <LoadingSpinner message="Loading passengers..." />;
@@ -65,7 +71,7 @@ const PassengerPage = ()=>{
         <div className={styles.container}>
           <button onClick={()=>setIsModalOpen(true)}>Add Passenger</button>
             <h1 className={styles.title}>Passengers Management</h1>
-            <PassengerTable passengers={passengers} onEdit={handleEditClick}/>
+            <PassengerTable passengers={passengers} onEdit={handleEditClick} onDelete={handleDeletePassenger}/>
         </div>
         <AddPassenger isOpen={isAddModalOpen} onClose={()=>setIsModalOpen(false)} onSave={handleAddPasenger}/>
         <EditPassenger isOpen={isEditModalOpen} onClose={()=>setIsEditModalOpen(false)} passenger={editingPassenger} onSave={handleUpdatePassenger}/>
