@@ -14,7 +14,7 @@ function FlightForm({ flight, onClose, onSave }) {
     arrivalGate: "",
     departureTime: "",
     arrivalTime: "",
-    status: "SCHEDULED",
+    status: "Scheduled",
     numberOfPassengers: 0,
     aircraftCapacity: 0,
   });
