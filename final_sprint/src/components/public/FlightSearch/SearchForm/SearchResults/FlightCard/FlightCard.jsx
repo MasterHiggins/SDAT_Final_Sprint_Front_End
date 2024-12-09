@@ -2,14 +2,25 @@ import { useState } from "react";
 import styles from "./FlightCard.module.css";
 import { formatTime, formatDate } from "../../../../../../utils/dateUtils";
 import BookingModal from "./BookingModal/BookingModal";
+import BookingConfirmationModal from "./BookingConfirmationModal/BookingConfirmationModal";
 
 const FlightCard = ({ flight }) => {
   const [showModal, setShowModal] = useState(false);
+  const [showConfirmation, setShowConfirmation] = useState(false);
+  const [bookingData, setBookingData] = useState(null);
 
   const handleBooking = (passengerData) => {
-    // Booking logic will go here
-    console.log("Booking flight with passenger data:", passengerData);
+    setBookingData({
+      passenger: passengerData,
+      flight: flight,
+    });
     setShowModal(false);
+    setShowConfirmation(true);
+  };
+
+  const handleCloseConfirmation = () => {
+    setShowConfirmation(false);
+    setBookingData(null); // Clean up booking data
   };
 
   return (
@@ -69,6 +80,13 @@ const FlightCard = ({ flight }) => {
           flight={flight}
           onClose={() => setShowModal(false)}
           onBooking={handleBooking}
+        />
+      )}
+
+      {showConfirmation && (
+        <BookingConfirmationModal
+          booking={bookingData}
+          onClose={handleCloseConfirmation}
         />
       )}
     </>
