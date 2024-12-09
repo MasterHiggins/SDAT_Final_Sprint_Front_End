@@ -1,5 +1,4 @@
 import api from "../config/apiConfig";
-import { formatDate } from "../../../utils/dateUtils";
 
 export const searchFlights = async (searchParams) => {
   try {
@@ -11,6 +10,12 @@ export const searchFlights = async (searchParams) => {
     }
 
     const flights = response;
+
+    // Helper function to format date to YYYY-MM-DD
+    const formatDateForComparison = (dateString) => {
+      const date = new Date(dateString);
+      return date.toISOString().split("T")[0];
+    };
 
     const filteredFlights = flights.filter((flight) => {
       const searchOrigin = searchParams.origin?.toUpperCase() || "";
@@ -30,9 +35,9 @@ export const searchFlights = async (searchParams) => {
           ?.toLowerCase()
           .includes(searchDestination.toLowerCase());
 
-      // Use formatDate utility to normalize dates
-      const flightDate = formatDate(flight.departureTime);
-      const searchDate = formatDate(searchParams.departureDate);
+      // Format dates for comparison
+      const flightDate = formatDateForComparison(flight.departureTime);
+      const searchDate = formatDateForComparison(searchParams.departureDate);
 
       const matchesDate =
         !searchParams.departureDate || flightDate === searchDate;
