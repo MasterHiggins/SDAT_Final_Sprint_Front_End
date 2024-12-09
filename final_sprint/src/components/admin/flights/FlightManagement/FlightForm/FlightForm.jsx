@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "./FlightForm.module.css";
-import { toast } from "react-toastify";
+import { flightManagementService } from "../../../../../api/services/flightManagementService";
 
 function FlightForm({ flight, onClose, onSave }) {
   const [formData, setFormData] = useState({
@@ -18,6 +18,7 @@ function FlightForm({ flight, onClose, onSave }) {
     numberOfPassengers: 0,
     aircraftCapacity: 0,
   });
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (flight) {
@@ -41,24 +42,22 @@ function FlightForm({ flight, onClose, onSave }) {
       ...prev,
       [name]: value,
     }));
+    setError(null); // Clear error on change
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(null); // Clear previous errors
     try {
-      const response = await fetch("/api/flights", {
-        method: flight ? "PUT" : "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
-
-      if (!response.ok) throw new Error("Failed to save flight");
-
-      toast.success(`Flight ${flight ? "updated" : "created"} successfully`);
+      if (flight?.flightId) {
+        await flightManagementService.updateFlight(flight.flightId, formData);
+      } else {
+        await flightManagementService.createFlight(formData);
+      }
       onSave();
     } catch (error) {
       console.error("Error saving flight:", error);
-      toast.error(`Failed to ${flight ? "update" : "create"} flight`);
+      setError(error.message || "Failed to save flight");
     }
   };
 
@@ -66,6 +65,7 @@ function FlightForm({ flight, onClose, onSave }) {
     <div className={styles.formOverlay}>
       <div className={styles.formContainer}>
         <h2>{flight ? "Edit Flight" : "Add New Flight"}</h2>
+        {error && <div className={styles.error}>{error}</div>}
         <form onSubmit={handleSubmit}>
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
