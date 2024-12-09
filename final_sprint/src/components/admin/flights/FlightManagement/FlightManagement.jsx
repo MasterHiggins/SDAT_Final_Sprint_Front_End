@@ -1,9 +1,9 @@
-// FlightManagement.jsx
 import { useState, useEffect } from "react";
 import styles from "./FlightManagement.module.css";
 import LoadingSpinner from "../../../shared/LoadingSpinner/LoadingSpinner";
 import FlightList from "./FlightList/FlightList";
 import FlightForm from "./FlightForm/FlightForm";
+import { flightManagementService } from "../../../../api/services/flightManagementService";
 
 function FlightManagement() {
   const [flights, setFlights] = useState([]);
@@ -17,12 +17,13 @@ function FlightManagement() {
 
   const loadFlights = async () => {
     try {
-      const response = await fetch("/api/flightboard");
-      if (!response.ok) throw new Error("Failed to load flights");
-      const data = await response.json();
+      console.log("Fetching flights...");
+      const data = await flightManagementService.getAllFlights();
+      console.log("Received flights:", data);
       setFlights(data);
     } catch (error) {
       console.error("Error loading flights:", error);
+      setFlights([]); // Set empty array on error
     } finally {
       setLoading(false);
     }
