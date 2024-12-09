@@ -44,3 +44,17 @@ export const updatePassenger = async (id,newPassengerData)=>{
       throw error
   }
 }
+
+
+export const deletePassenger = async (id)=>{
+  try {
+      const res = await api.delete(`passengers/${id}`,{
+          headers:{'Content-Type': 'application/json'},
+      })
+      return res.data                                                               
+  } catch (error) {
+      console.error('error when adding passenger', error)
+      throw error
+  }
+}
+
