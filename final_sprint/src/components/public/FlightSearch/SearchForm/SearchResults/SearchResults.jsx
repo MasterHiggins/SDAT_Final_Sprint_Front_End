@@ -15,7 +15,10 @@ const SearchResults = ({ flights }) => {
       <h2>Available Flights</h2>
       <div className={styles.flightsList}>
         {flights.map((flight) => (
-          <FlightCard key={flight.id} flight={flight} />
+          <FlightCard
+            key={flight.flightNumber} // Add unique key prop
+            flight={flight}
+          />
         ))}
       </div>
     </div>
