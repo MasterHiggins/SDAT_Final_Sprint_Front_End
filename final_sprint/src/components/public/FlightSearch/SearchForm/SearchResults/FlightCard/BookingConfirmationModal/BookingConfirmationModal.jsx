@@ -19,8 +19,17 @@ const BookingConfirmationModal = ({ booking, onClose }) => {
     return null;
   }
 
-  // Get city from original passenger data
-  const cityName = originalPassenger.city?.name || "Not provided";
+  // Get city from multiple sources with logging
+  const cityName =
+    bookingDetails.passengerCity || // Check existing passenger city first
+    originalPassenger.city?.name || // Then check new passenger city
+    "Not provided";
+
+  console.log("City data sources:", {
+    bookingDetailsCity: bookingDetails.passengerCity,
+    originalPassengerCity: originalPassenger.city?.name,
+    finalCity: cityName,
+  });
 
   console.log("Processed data:", {
     passenger: originalPassenger,
