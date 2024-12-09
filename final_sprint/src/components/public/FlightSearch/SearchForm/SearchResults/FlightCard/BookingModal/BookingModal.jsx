@@ -54,15 +54,14 @@ const BookingModal = ({ flight, onClose, onBooking }) => {
     setError(null);
 
     try {
-      console.log("Flight object:", flight);
-
-      // Update validation to use flightId
+      // Validate flight ID first
       if (!flight?.flightId) {
         throw new Error("Invalid flight data");
       }
 
-      // 1. Check for existing passenger
-      console.log("Checking for existing passenger...");
+      console.log("Processing booking for flight:", flight.flightNumber);
+
+      // Check for existing passenger
       const existingPassenger = await checkExistingPassenger(
         passengerData.firstName,
         passengerData.lastName,
@@ -70,24 +69,29 @@ const BookingModal = ({ flight, onClose, onBooking }) => {
       );
 
       let passengerId;
-
       if (existingPassenger) {
-        console.log("Using existing passenger ID:", existingPassenger.id);
+        console.log("Using existing passenger:", existingPassenger.id);
         passengerId = existingPassenger.id;
       } else {
         console.log("Creating new passenger...");
         const newPassenger = await createPassenger(passengerData);
-        console.log("New passenger created:", newPassenger);
         passengerId = newPassenger.id;
       }
 
-      // Use flightId instead of id
-      await bookFlight(passengerId, flight.flightId);
-      onBooking();
-      onClose();
+      // Book flight and get response
+      const bookingResponse = await bookFlight(passengerId, flight.flightId);
+
+      // Pass complete booking data to parent
+      onBooking({
+        passenger: existingPassenger || passengerData,
+        flight,
+        bookingDetails: bookingResponse,
+      });
+
+      onClose(); // Close modal after successful booking
     } catch (error) {
       console.error("Booking error:", error);
-      setError(error.message);
+      setError(error.message || "Failed to complete booking");
     } finally {
       setLoading(false);
     }
