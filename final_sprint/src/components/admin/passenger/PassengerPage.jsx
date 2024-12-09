@@ -4,13 +4,16 @@ import LoadingSpinner from "../../shared/LoadingSpinner/LoadingSpinner";
 import { addPassenger, getPassengers } from "../../../api/services/passengerService";
 import PassengerTable from "./passengerTable/PassengerTable";
 import AddPassenger from "./addPassenger/AddPassenger";
+import EditPassenger from "./updatePassengerButton/EditPassengerButton";
 
 
 const PassengerPage = ()=>{
   const [passengers, setPassengers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isAddModalOpen, setIsModalOpen] = useState(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false)
+  const [editingPassenger,setEditingPassenger] = useState(null)
 
   useEffect(() => {
     fetchPassengers();
@@ -32,14 +35,24 @@ const PassengerPage = ()=>{
 
   const handleAddPasenger = async (newPassenger)=>{
     try { 
-      // const savedPassenger = await addPassenger(newPassenger)
-      // setPassengers([...passengers,savedPassenger])
       await addPassenger(newPassenger)
       await fetchPassengers();
     } catch (error) {
       console.error('failed to save',error.message)
     }
   }
+
+  const handleUpdatePassenger = async (updatedPassenger)=>{
+    setPassengers((oldData)=>
+      oldData.map((o)=>(o.id === updatedPassenger.id?updatedPassenger:o))
+    )
+    await fetchPassengers();
+  }
+
+    const handleEditClick = (passenger)=>{
+      setEditingPassenger(passenger)
+      setIsEditModalOpen(true)
+    }
 
   if (loading) {
     return <LoadingSpinner message="Loading passengers..." />;
@@ -52,9 +65,10 @@ const PassengerPage = ()=>{
         <div className={styles.container}>
           <button onClick={()=>setIsModalOpen(true)}>Add Passenger</button>
             <h1 className={styles.title}>Passengers Management</h1>
-            <PassengerTable passengers={passengers}/>
+            <PassengerTable passengers={passengers} onEdit={handleEditClick}/>
         </div>
-        <AddPassenger isOpen={isModalOpen} onClose={()=>setIsModalOpen(false)} onSave={handleAddPasenger}/>
+        <AddPassenger isOpen={isAddModalOpen} onClose={()=>setIsModalOpen(false)} onSave={handleAddPasenger}/>
+        <EditPassenger isOpen={isEditModalOpen} onClose={()=>setIsEditModalOpen(false)} passenger={editingPassenger} onSave={handleUpdatePassenger}/>
       </div>
     )
 }

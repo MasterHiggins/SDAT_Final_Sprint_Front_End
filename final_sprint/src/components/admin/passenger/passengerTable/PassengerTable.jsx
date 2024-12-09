@@ -1,8 +1,8 @@
-// import { useState } from "react";
+import { FaEdit } from "react-icons/fa";
 import styles from "./PassengerTable.module.css";
 
 
-const PassengerTable =({passengers})=>{
+const PassengerTable =({passengers,onEdit})=>{
     if(!passengers||passengers.length ===0){
         return(
             <p>no passengers</p>
@@ -20,9 +20,10 @@ const PassengerTable =({passengers})=>{
             <div className={styles.passengerList}>
                 {passengers.map(passenger=>(
                     <div key={passenger.id} className={styles.passengerRow}>
-                        <div className={styles.elements}> {passenger.firstName} {passenger.lastName} </div>
+                        <div className={styles.elements}> {passenger.firstName} {passenger.lastName}</div>
                         <div className={styles.elements}> {passenger.phoneNumber}</div>
-                        <div className={styles.elements}>{passenger.city.name} </div>
+                        <div className={styles.elements}>{passenger.passengerCity} </div>
+                        <FaEdit onClick={()=>{onEdit(passenger)}}/>
                     </div>
                 ))}
             </div>
