@@ -23,3 +23,13 @@ export const formatTimeWithDate = (dateTime) => {
     date: formatDate(dateTime),
   };
 };
+export const formatDateTime = (dateTime) => {
+  return new Date(dateTime).toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+};

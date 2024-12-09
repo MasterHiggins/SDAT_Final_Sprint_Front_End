@@ -1,0 +1,363 @@
+.listContainer {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.table th {
+  background-color: #f8f9fa;
+  color: #495057;
+  font-weight: 500;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+}
+
+.timeCell,
+.flightCell,
+.locationCell {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.timeValue,
+.flightNumber,
+.cityName {
+  font-weight: 500;
+  color: #212529;
+}
+
+.date,
+.airline,
+.airportCode {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.gateCell {
+  font-weight: 500;
+  text-align: center;
+}
+
+.status {
+  display: inline-block;
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+}
+
+.scheduled {
+  color: #0d6efd;
+}
+.active {
+  color: #198754;
+}
+.delayed {
+  color: #ffc107;
+}
+.cancelled {
+  color: #dc3545;
+}
+.completed {
+  color: #6c757d;
+}
+
+.actionsCell {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.editButton {
+  color: #0d6efd;
+}
+.editButton:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+
+.deleteButton {
+  color: #dc3545;
+}
+.deleteButton:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+
+.detailsButton {
+  color: #6c757d;
+}
+.detailsButton:hover {
+  background-color: rgba(108, 117, 125, 0.1);
+}
+
+.expandedRow {
+  background-color: #f8f9fa;
+}
+
+.expandedContent {
+  padding: 1rem;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.detailSection h4 {
+  color: #0d6efd;
+  margin-bottom: 0.75rem;
+  font-weight: 500;
+}
+
+.detailSection p {
+  margin: 0.5rem 0;
+  color: #495057;
+}
+
+@media (max-width: 768px) {
+  .table th:nth-child(4),
+  .table td:nth-child(4) {
+    display: none;
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.board {
+  width: 100%;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-top: 20px;
+}
+
+.header {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 0.8fr 0.5fr 0.8fr 1fr;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+.rowContainer {
+  border-bottom: 1px solid #e9ecef;
+}
+
+.row {
+  display: grid;
+  grid-template-columns: 0.8fr 1fr 0.8fr 0.5fr 0.8fr 1fr;
+  padding: 1rem;
+  transition: all 0.2s ease-in-out;
+  cursor: pointer;
+}
+
+.row:hover {
+  background-color: #f8f9fa;
+}
+
+.row.expanded {
+  background-color: #f8f9fa;
+}
+
+.time,
+.flight,
+.gate,
+.status,
+.actions {
+  padding: 0 0.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.destination {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 0;
+}
+
+.timeValue {
+  font-weight: 500;
+  font-size: 1rem;
+}
+
+.date {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.flightNumber {
+  font-weight: 500;
+}
+
+.airline {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.cityName {
+  font-weight: 500;
+}
+
+.airportCode {
+  font-size: 0.875rem;
+  color: #6c757d;
+}
+
+.gateNumber {
+  font-weight: 500;
+  text-align: center;
+}
+
+.status {
+  font-weight: 500;
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.scheduled {
+  color: #0d6efd;
+}
+.active {
+  color: #198754;
+}
+.delayed {
+  color: #ffc107;
+}
+.cancelled {
+  color: #dc3545;
+}
+.default {
+  color: #6c757d;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: transparent;
+}
+
+.editButton {
+  color: #0d6efd;
+}
+
+.deleteButton {
+  color: #dc3545;
+}
+
+.detailsButton {
+  color: #6c757d;
+}
+
+.editButton:hover {
+  background-color: rgba(13, 110, 253, 0.1);
+}
+.deleteButton:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}
+.detailsButton:hover {
+  background-color: rgba(108, 117, 125, 0.1);
+}
+
+.expandedContent {
+  background-color: #f8f9fa;
+  padding: 1rem;
+}
+
+.detailsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  padding: 1rem;
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.detailSection h4 {
+  color: #0d6efd;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
+.detailSection p {
+  color: #6c757d;
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+@media (max-width: 768px) {
+  .header {
+    grid-template-columns: 0.8fr 1fr 0.8fr 0.5fr 0.8fr;
+  }
+
+  .row {
+    grid-template-columns: 0.8fr 1fr 0.8fr 0.5fr 0.8fr;
+  }
+
+  .actions {
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .detailsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+
+  .gate {
+    display: none;
+  }
+}

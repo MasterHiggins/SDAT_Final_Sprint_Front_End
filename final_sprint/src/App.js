@@ -4,7 +4,9 @@ import FlightBoard from "./components/public/FlightBoard/FlightBoard";
 import FlightSearch from "./components/public/FlightSearch/FlightSearch";
 import AdminPage from "./components/admin/AdminPage";
 import PassengerPage from "./components/admin/passenger/PassengerPage";
-
+import FlightManagement from "./components/admin/flights/FlightManagement/FlightManagement";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   return (
@@ -14,10 +16,17 @@ function App() {
         <Routes>
           <Route path="/" element={<FlightBoard />} />
           <Route path="/search" element={<FlightSearch />} />
-          <Route path="/admin" element={<AdminPage/>}/>
-          <Route path="/admin/passengers" element={<PassengerPage/>}/>
-        </Routes>                          
-
+          <Route path="/admin" element={<AdminPage />} />
+          <Route path="/admin/passengers" element={<PassengerPage />} />
+          <Route path="/admin/flights" element={<FlightManagement />} />
+        </Routes>
+        <ToastContainer
+          position="top-right"
+          autoClose={3000}
+          hideProgressBar={false}
+          closeOnClick
+          pauseOnHover
+        />
       </div>
     </Router>
   );
