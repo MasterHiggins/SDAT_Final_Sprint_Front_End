@@ -13,7 +13,7 @@ export const getPassengers = async () => {
 
 export const addPassenger = async (newPassenger)=>{
   try {
-      const res = await api.post("/api/passengers",newPassenger,{
+      const res = await api.post("passengers",newPassenger,{
           headers:{'Content-Type': 'application/json'},
       })
       return res.data                                                               
@@ -31,3 +31,16 @@ export const getCities = async () => {
   }
 };
 
+
+
+export const updatePassenger = async (id,newPassengerData)=>{
+  try {
+      const res = await api.put(`passengers/${id}`,newPassengerData,{
+          headers:{'Content-Type': 'application/json'},
+      })
+      return res.data                                                               
+  } catch (error) {
+      console.error('error when adding passenger', error)
+      throw error
+  }
+}
