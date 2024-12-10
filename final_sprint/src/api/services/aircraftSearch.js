@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const BASE_URL = './api/aircraft';
+const BASE_URL = 'http://localhost:8080/aircraft';
 
 export const aircraftApi = {
   getAll: () => axios.get(`${BASE_URL}`),
