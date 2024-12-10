@@ -79,7 +79,7 @@ const PassengerPage = ()=>{
     return(
       <div>
         <div className={styles.container}>
-          <button onClick={()=>setIsModalOpen(true)}>Add Passenger</button>
+          <button onClick={()=>setIsModalOpen(true)} className={styles.addButton}>Add Passenger</button>
             <h1 className={styles.title}>Passengers Management</h1>
             <PassengerTable passengers={passengers} onEdit={handleEditClick} onDelete={handleDeletePassenger} onFlighView={handlePassengerFlights}/>
         </div>
