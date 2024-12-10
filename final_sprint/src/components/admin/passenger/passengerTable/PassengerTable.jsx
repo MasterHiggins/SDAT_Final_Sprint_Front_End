@@ -1,10 +1,10 @@
-import { FaEdit,FaTrash } from "react-icons/fa";
+import { FaEdit,FaPlane,FaTrash } from "react-icons/fa";
 import styles from "./PassengerTable.module.css";
 
 
 
 
-const PassengerTable =({passengers,onEdit,onDelete})=>{
+const PassengerTable =({passengers,onEdit,onDelete,onFlighView})=>{
     if(!passengers||passengers.length ===0){
         return(
             <p>no passengers</p>
@@ -28,6 +28,7 @@ const PassengerTable =({passengers,onEdit,onDelete})=>{
                         <div>
                         <FaEdit onClick={()=>{onEdit(passenger)}}/>
                         <FaTrash onClick={()=>onDelete(passenger.id)}/>
+                        <FaPlane onClick={()=>onFlighView(passenger.id)}/>
                         </div>
                     </div>
                 ))}
