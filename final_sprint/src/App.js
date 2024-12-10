@@ -8,6 +8,8 @@ import FlightManagement from "./components/admin/flights/FlightManagement/Flight
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AircraftManagement from "./components/admin/aircraft/AircraftManagement";
+import AirportPage from "./components/admin/airport/AirportPage";
+
 
 
 function App() {
@@ -22,6 +24,7 @@ function App() {
           <Route path="/admin/passengers" element={<PassengerPage />} />
           <Route path="/admin/flights" element={<FlightManagement />} />
           <Route path="/admin/aircraft" element={<AircraftManagement/>}/>
+          <Route path="/admin/airports" element={<AirportPage/>}/>
         </Routes>
         <ToastContainer
           position="top-right"
