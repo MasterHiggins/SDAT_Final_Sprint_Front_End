@@ -7,23 +7,18 @@ function AircraftList({ aircraft, onEdit, onDelete }) {
       <table className={styles.table}>
         <thead>
           <tr>
-            <th>Registration</th>
-            <th>Type</th>
-            <th>Airline</th>
+            <th>Model</th>
             <th>Capacity</th>
-            <th>Status</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
           {aircraft.map((aircraft) => (
             <tr key={aircraft.id}>
-              <td>{aircraft.registration}</td>
-              <td>{aircraft.type}</td>
-              <td>{aircraft.airline}</td>
+              <td>{aircraft.model}</td>
               <td>{aircraft.capacity}</td>
               <td>
-                <span className={styles[aircraft.status.toLowerCase()]}>
+                <span>
                   {aircraft.status}
                 </span>
               </td>

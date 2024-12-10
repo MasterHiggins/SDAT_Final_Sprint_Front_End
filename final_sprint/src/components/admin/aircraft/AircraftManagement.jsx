@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
-import { aircraftApi } from '../../../api';  //Change to api
 import AircraftList from './AircraftList';
 import AircraftForm from './AircraftForm';
 import styles from './AircraftManagement.module.css';
 import { toast } from 'react-toastify';
+import { aircraftApi } from '../../../api/services/aircraftSearch';
 
-function AircraftManagement() {
+const AircraftManagement = () => {
   const [aircraft, setAircraft] = useState([]);
   const [loading, setLoading] = useState(true);
   const [showForm, setShowForm] = useState(false);
