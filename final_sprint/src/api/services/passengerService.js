@@ -58,3 +58,20 @@ export const deletePassenger = async (id)=>{
   }
 }
 
+
+
+export const getPassengerFlights = async (id)=>{
+  try {
+      const res = await api.get(`/passengers/${id}/aircraft`,{
+          headers:{'Content-Type': 'application/json'},
+      })
+      console.log(res.data)
+      return res                                                               
+  } catch (error) {
+    if(error.response && error.response.status === 404){
+      return[]
+    }
+      console.error('error when adding passenger', error)
+      throw error
+  }
+}
