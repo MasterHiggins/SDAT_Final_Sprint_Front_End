@@ -5,6 +5,7 @@ import FlightSearch from "./components/public/FlightSearch/FlightSearch";
 import AdminPage from "./components/admin/AdminPage";
 import PassengerPage from "./components/admin/passenger/PassengerPage";
 import FlightManagement from "./components/admin/flights/FlightManagement/FlightManagement";
+import AircraftManagement from './components/AircraftManagement/AircraftManagement';
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
