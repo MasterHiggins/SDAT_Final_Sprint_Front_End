@@ -41,13 +41,11 @@ function FlightManagement() {
 
   const handleDeleteFlight = async (id) => {
     console.log("Delete requested for flight ID:", id); // Add debug log
-    if (window.confirm("Are you sure you want to delete this flight?")) {
-      try {
-        await flightManagementService.deleteFlight(id);
-        loadFlights(); // Refresh list after deletion
-      } catch (error) {
-        console.error("Error deleting flight:", error);
-      }
+    try {
+      await flightManagementService.deleteFlight(id);
+      loadFlights(); // Refresh list after deletion
+    } catch (error) {
+      console.error("Error deleting flight:", error);
     }
   };
 
