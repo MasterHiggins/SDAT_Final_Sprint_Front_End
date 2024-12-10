@@ -40,16 +40,12 @@ function FlightManagement() {
   };
 
   const handleDeleteFlight = async (id) => {
-    if (window.confirm("Are you sure you want to delete this flight?")) {
-      try {
-        const response = await fetch(`/api/flights/${id}`, {
-          method: "DELETE",
-        });
-        if (!response.ok) throw new Error("Failed to delete flight");
-        loadFlights();
-      } catch (error) {
-        console.error("Error deleting flight:", error);
-      }
+    console.log("Delete requested for flight ID:", id); // Add debug log
+    try {
+      await flightManagementService.deleteFlight(id);
+      loadFlights(); // Refresh list after deletion
+    } catch (error) {
+      console.error("Error deleting flight:", error);
     }
   };
 

@@ -2,7 +2,7 @@ import api from "../config/apiConfig";
 
 // Match backend enum cases exactly
 const FLIGHT_STATUSES = {
-  SCHEDULED: "Scheduled", // Frontend key : Backend value
+  SCHEDULED: "Scheduled",
   ACTIVE: "Active",
   DELAYED: "Delayed",
   CANCELLED: "Cancelled",
@@ -53,9 +53,22 @@ const updateFlight = async (id, flightData) => {
   }
 };
 
+const deleteFlight = async (id) => {
+  try {
+    console.log("Deleting flight:", id);
+    const response = await api.delete(`/flights/${id}`);
+    console.log("Flight deleted:", response);
+    return response;
+  } catch (error) {
+    console.error("Error deleting flight:", error);
+    throw error;
+  }
+};
+
 export const flightManagementService = {
   getAllFlights,
   createFlight,
   updateFlight,
+  deleteFlight,
   FLIGHT_STATUSES,
 };

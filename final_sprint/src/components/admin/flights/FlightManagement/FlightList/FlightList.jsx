@@ -2,6 +2,8 @@ import { useState } from "react";
 import { FaEdit, FaTrash, FaPlane } from "react-icons/fa";
 import styles from "./FlightList.module.css";
 import { formatTime, formatDate } from "../../../../../utils/dateUtils";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function FlightList({ flights, onEdit, onDelete }) {
   const [expandedId, setExpandedId] = useState(null);
@@ -11,6 +13,34 @@ function FlightList({ flights, onEdit, onDelete }) {
     return `${styles.status} ${
       styles[normalizedStatus.toLowerCase()] || styles.default
     }`;
+  };
+
+  const handleDelete = (flightId) => {
+    toast(
+      ({ closeToast }) => (
+        <div>
+          <p>Are you sure you want to delete this flight?</p>
+          <button
+            onClick={() => {
+              onDelete(flightId);
+              closeToast();
+            }}
+            className={styles.confirmButton}
+          >
+            Yes
+          </button>
+          <button onClick={closeToast} className={styles.cancelButton}>
+            No
+          </button>
+        </div>
+      ),
+      {
+        position: "top-right",
+        autoClose: false,
+        closeOnClick: false,
+        draggable: false,
+      }
+    );
   };
 
   return (
@@ -59,22 +89,22 @@ function FlightList({ flights, onEdit, onDelete }) {
                 <button
                   onClick={(e) => {
                     e.stopPropagation();
+                    handleDelete(flight.flightId);
+                  }}
+                  className={`${styles.actionButton} ${styles.deleteButton}`}
+                  title="Delete Flight"
+                >
+                  <FaTrash />
+                </button>
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
                     onEdit(flight);
                   }}
                   className={`${styles.actionButton} ${styles.editButton}`}
                   title="Edit Flight"
                 >
                   <FaEdit />
-                </button>
-                <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDelete(flight.flightId);
-                  }}
-                  className={`${styles.actionButton} ${styles.deleteButton}`}
-                  title="Delete Flight"
-                >
-                  <FaTrash />
                 </button>
                 <button
                   onClick={(e) => {

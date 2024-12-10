@@ -121,3 +121,11 @@
   color: #666;
   cursor: not-allowed;
 }
+
+.success {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.75rem 1.25rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}

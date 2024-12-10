@@ -34,6 +34,7 @@ function FlightForm({ flight, onClose, onSave }) {
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [success, setSuccess] = useState(false); // Add success state
 
   const loadReferenceData = async () => {
     try {
@@ -95,6 +96,7 @@ function FlightForm({ flight, onClose, onSave }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError(null);
+    setSuccess(false);
 
     // Validate flight number
     if (!formData.flightNumber.trim()) {
@@ -116,7 +118,11 @@ function FlightForm({ flight, onClose, onSave }) {
 
       console.log("Final payload:", payload);
       await flightFormService.createFlight(payload);
-      onSave();
+      setSuccess(true);
+      setTimeout(() => {
+        onSave();
+        onClose();
+      }, 2000); // Close after showing success message
     } catch (error) {
       console.error("Error saving flight:", error);
       setError(error.response?.data || "Failed to save flight");
@@ -136,6 +142,9 @@ function FlightForm({ flight, onClose, onSave }) {
   return (
     <div className={styles.formOverlay}>
       <div className={styles.formContainer}>
+        {success && (
+          <div className={styles.success}>Flight saved successfully!</div>
+        )}
         <h2>{flight ? "Edit Flight" : "Add New Flight"}</h2>
         {error && <div className={styles.error}>{error}</div>}
         <form onSubmit={handleSubmit}>
