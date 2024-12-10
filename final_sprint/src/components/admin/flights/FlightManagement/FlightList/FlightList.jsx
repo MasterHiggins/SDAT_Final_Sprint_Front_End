@@ -13,6 +13,12 @@ function FlightList({ flights, onEdit, onDelete }) {
     }`;
   };
 
+  const handleDelete = (e, flightId) => {
+    e.stopPropagation();
+    console.log("Triggering delete for flight ID:", flightId); // Add debug log
+    onDelete(flightId);
+  };
+
   return (
     <div className={styles.board}>
       <div className={styles.header}>
@@ -67,10 +73,7 @@ function FlightList({ flights, onEdit, onDelete }) {
                   <FaEdit />
                 </button>
                 <button
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    onDelete(flight.flightId);
-                  }}
+                  onClick={(e) => handleDelete(e, flight.flightId)}
                   className={`${styles.actionButton} ${styles.deleteButton}`}
                   title="Delete Flight"
                 >
