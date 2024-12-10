@@ -25,11 +25,6 @@ const AirportTable =({airports,onEdit,onDelete,onFlighView})=>{
                         <div className={styles.elements}> {airport.name}</div>
                         <div className={styles.elements}> {airport.code}</div>
                         <div className={styles.elements}>{airport.city.name} </div>
-                        {/* <div>
-                        <FaEdit onClick={()=>{onEdit(passenger)}}/>
-                        <FaTrash onClick={()=>onDelete(passenger.id)}/>
-                        <FaPlane onClick={()=>onFlighView(passenger.id)}/>
-                        </div> */}
                     </div>
                 ))}
             </div>
