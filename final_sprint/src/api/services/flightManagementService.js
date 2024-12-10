@@ -1,7 +1,8 @@
 import api from "../config/apiConfig";
 
+// Match backend enum cases exactly
 const FLIGHT_STATUSES = {
-  SCHEDULED: "Scheduled",
+  SCHEDULED: "Scheduled", // Frontend key : Backend value
   ACTIVE: "Active",
   DELAYED: "Delayed",
   CANCELLED: "Cancelled",
@@ -22,8 +23,14 @@ const getAllFlights = async () => {
 
 const createFlight = async (flightData) => {
   try {
-    console.log("Creating flight:", flightData);
-    const response = await api.post("/api/flightboard/flight", flightData);
+    // Transform status to match backend enum
+    const payload = {
+      ...flightData,
+      status: FLIGHT_STATUSES[flightData.status] || "Scheduled",
+    };
+
+    console.log("Creating flight with payload:", payload);
+    const response = await api.post("/api/flightboard/flight", payload);
     console.log("Flight created:", response);
     return response;
   } catch (error) {
