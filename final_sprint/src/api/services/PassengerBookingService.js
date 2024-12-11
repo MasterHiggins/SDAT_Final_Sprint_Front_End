@@ -35,6 +35,7 @@ export const checkExistingPassenger = async (
   }
 };
 
+// In createPassenger function
 export const createPassenger = async (passengerData) => {
   try {
     console.log("Creating passenger with data:", passengerData);
@@ -43,7 +44,7 @@ export const createPassenger = async (passengerData) => {
       firstName: passengerData.firstName,
       lastName: passengerData.lastName,
       phoneNumber: passengerData.phoneNumber,
-      city: passengerData.city.name,
+      passengerCity: passengerData.city, // Changed from city.name
     };
 
     console.log("Create passenger payload:", payload);
@@ -87,13 +88,14 @@ export const bookFlight = async (passengerId, flightId) => {
   }
 };
 
+// In updatePassenger function
 export const updatePassenger = async (id, passengerData) => {
   try {
     const payload = {
       firstName: passengerData.firstName,
       lastName: passengerData.lastName,
       phoneNumber: passengerData.phoneNumber,
-      city: passengerData.city.name, // Send city name as string
+      passengerCity: passengerData.city, // Changed from city.name
     };
 
     const response = await api.put(`/passengers/${id}`, payload);
