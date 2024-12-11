@@ -45,8 +45,6 @@ const AirportPage = ()=>{
 
 
 
-
-
   if (loading) {
     return <LoadingSpinner message="Loading airports..." />;
   }
@@ -66,4 +64,5 @@ const AirportPage = ()=>{
       </div>
     )
 }
+
 export default AirportPage;

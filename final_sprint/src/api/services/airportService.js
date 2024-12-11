@@ -19,7 +19,7 @@ export const getAirports = async () => {
         })
         return res.data                                                               
     } catch (error) {
-        console.error('error when adding airport', error)
+        console.error('error when adding airports', error)
         throw error
     }
   }
