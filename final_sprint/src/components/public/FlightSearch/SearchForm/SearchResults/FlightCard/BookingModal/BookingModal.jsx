@@ -24,9 +24,7 @@ const BookingModal = ({ flight, onClose, onBooking }) => {
     firstName: "",
     lastName: "",
     phoneNumber: "",
-    city: {
-      name: "",
-    },
+    city: "", // Changed from {name: ""} to just ""
   });
 
   const [loading, setLoading] = useState(false);
@@ -34,18 +32,10 @@ const BookingModal = ({ flight, onClose, onBooking }) => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    if (name === "city") {
-      // Handle city field differently
-      setPassengerData((prev) => ({
-        ...prev,
-        city: { name: value },
-      }));
-    } else {
-      setPassengerData((prev) => ({
-        ...prev,
-        [name]: value,
-      }));
-    }
+    setPassengerData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -142,7 +132,7 @@ const BookingModal = ({ flight, onClose, onBooking }) => {
               type="text"
               id="city"
               name="city"
-              value={passengerData.city.name}
+              value={passengerData.city} // Changed from passengerData.city.name
               onChange={handleChange}
               required
             />
