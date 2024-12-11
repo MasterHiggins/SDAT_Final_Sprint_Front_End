@@ -14,8 +14,6 @@ const AirportPage = ()=>{
   const [isAddModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false)
   const [editingAirport,setEditingAirport] = useState(null)
-  // const [flights,setFlights] = useState([])
-  // const [isFlightViewOpen,setIsFlightViewOpen] = useState(false)
 
   useEffect(() => {
     fetchAirports();

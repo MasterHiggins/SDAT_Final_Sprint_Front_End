@@ -65,6 +65,7 @@ const EditAirport = ({isOpen,onClose,onSave,airport})=>{
                             name="cityId"
                             value={airportData.cityId}
                             onChange={handleInputChange}
+                            className={styles.dropdown}
                             required
                         >
                             <option value="" disabled>

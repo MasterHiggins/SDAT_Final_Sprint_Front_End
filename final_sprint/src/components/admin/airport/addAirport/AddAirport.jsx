@@ -42,17 +42,18 @@ const AddAirport = ({isOpen,onClose,onSave})=>{
 
 
     return(
-        <div className={styles.overlay}>
-            <div className={styles.content}>
+        <div className={styles.modalOverlay}>
+            <div className={styles.modal}>
                 <h2>Add new Airport</h2>
                 <form onSubmit={handelSubmit}>
-                <div className={styles.form}>
+                <div className={styles.formGroup}>
                     <input type="text" name="name" value={airportData.name} onChange={handleInputChange} required/>
                     <input type="text" name="code" value={airportData.code} onChange={handleInputChange} required/>
                     <select
                             name="cityId"
                             value={airportData.cityId}
                             onChange={handleInputChange}
+                            className={styles.dropdown}
                             required
                         >
                             <option value="" disabled>
@@ -65,8 +66,8 @@ const AddAirport = ({isOpen,onClose,onSave})=>{
                             ))}
                         </select>
                 </div>
-                <div className={styles.actions}>
-                <button type="submit" className={styles.addButton}>Add</button>
+                <div className={styles.buttonGroup}>
+                <button type="submit" className={styles.submitButton}>Add</button>
                 <button onClick={onClose} className={styles.cancelButton}>
                     cancel
                 </button>
