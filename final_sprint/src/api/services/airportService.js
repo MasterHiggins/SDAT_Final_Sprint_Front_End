@@ -32,3 +32,31 @@ export const getAirports = async () => {
       throw error;
     }
   };
+
+
+
+  export const updateAirport = async (id,newAriportData)=>{
+    try {
+        const res = await api.put(`airports/${id}`,newAriportData,{
+            headers:{'Content-Type': 'application/json'},
+        })
+        return res.data                                                               
+    } catch (error) {
+        console.error('error when updating airport', error)
+        throw error
+    }
+  }
+  
+  
+  export const deleteAirport = async (id)=>{
+    try {
+        const res = await api.delete(`airports/${id}`,{
+            headers:{'Content-Type': 'application/json'},
+        })
+        return res.data                                                               
+    } catch (error) {
+        console.error('error when removing airports', error)
+        throw error
+    }
+  }
+  
