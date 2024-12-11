@@ -37,7 +37,7 @@ export const getAirports = async () => {
 
   export const updateAirport = async (id,newAriportData)=>{
     try {
-        const res = await api.put(`airports/${id}`,newAriportData,{
+        const res = await api.put(`/airports/${id}`,newAriportData,{
             headers:{'Content-Type': 'application/json'},
         })
         return res.data                                                               
