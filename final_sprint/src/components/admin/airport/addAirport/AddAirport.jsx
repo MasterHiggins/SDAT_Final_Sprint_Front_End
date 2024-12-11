@@ -30,9 +30,9 @@ const AddAirport = ({isOpen,onClose,onSave})=>{
     const handelSubmit = async (e) =>{
         e.preventDefault(); 
            const newAirport =  {
-            firstName: airportData.name,
-            phoneNumber:airportData.code,
-            city:{id:airportData.cityId}
+            name: airportData.name,
+            code:airportData.code,
+            city: {id:airportData.cityId}
            }
            onSave(newAirport)
            onClose();
