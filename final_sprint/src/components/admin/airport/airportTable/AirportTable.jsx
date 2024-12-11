@@ -1,4 +1,4 @@
-import { FaEdit,FaPlane,FaTrash } from "react-icons/fa";
+import { FaEdit,FaTrash } from "react-icons/fa";
 import styles from "./AirportTable.module.css";
 
 
@@ -19,12 +19,13 @@ const AirportTable =({airports,onEdit,onDelete,onFlighView})=>{
                 <div>City</div>
                 <div>actions</div>
             </div>
-            <div className={styles.passengerList}>
+            <div className={styles.List}>
                 {airports.map(airport=>(
-                    <div key={airport.id} className={styles.passengerRow}>
+                    <div key={airport.id} className={styles.Row}>
                         <div className={styles.elements}> {airport.name}</div>
                         <div className={styles.elements}> {airport.code}</div>
                         <div className={styles.elements}>{airport.city.name} </div>
+                        <div>
                         <button
                 className={styles.editButton}
                 onClick={() => onEdit(airport)}
@@ -39,6 +40,7 @@ const AirportTable =({airports,onEdit,onDelete,onFlighView})=>{
               >
                 <FaTrash />
               </button>
+              </div>
                     </div>
                 ))}
             </div>
