@@ -40,7 +40,7 @@ export const updatePassenger = async (id,newPassengerData)=>{
       })
       return res.data                                                               
   } catch (error) {
-      console.error('error when adding passenger', error)
+      console.error('error when updating passenger', error)
       throw error
   }
 }
@@ -53,7 +53,7 @@ export const deletePassenger = async (id)=>{
       })
       return res.data                                                               
   } catch (error) {
-      console.error('error when adding passenger', error)
+      console.error('error when removing passenger', error)
       throw error
   }
 }
@@ -71,7 +71,7 @@ export const getPassengerFlights = async (id)=>{
     if(error.response && error.response.status === 404){
       return[]
     }
-      console.error('error when adding passenger', error)
+      console.error('error when get passenger history', error)
       throw error
   }
 }

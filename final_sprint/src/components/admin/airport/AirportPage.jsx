@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import styles from "./AirportPage.module.css"
 import LoadingSpinner from "../../shared/LoadingSpinner/LoadingSpinner";
-import { addAirport, getAirports } from "../../../api/services/airportService";
+import { addAirport, deleteAirport, getAirports } from "../../../api/services/airportService";
 import AirportTable from "./airportTable/AirportTable";
 import AddAirport from "./addAirport/AddAirport";
 
@@ -43,7 +43,10 @@ const AirportPage = ()=>{
     }
   }
 
-
+  const handleDeleteAirport = async (id)=>{
+    await deleteAirport(id)
+    await fetchAirports();
+  }
 
   if (loading) {
     return <LoadingSpinner message="Loading airports..." />;
@@ -56,7 +59,7 @@ const AirportPage = ()=>{
         <div className={styles.container}>
           <button onClick={()=>setIsModalOpen(true)} className={styles.addButton}>Add Airport</button>
             <h1 className={styles.title}>Airport Management</h1>
-            <AirportTable airports={airports} />
+            <AirportTable airports={airports} onDelete={handleDeleteAirport} />
         </div>
 
         <AddAirport isOpen={isAddModalOpen} onClose={()=>setIsModalOpen(false)} onSave={handleAddAirport}/>
