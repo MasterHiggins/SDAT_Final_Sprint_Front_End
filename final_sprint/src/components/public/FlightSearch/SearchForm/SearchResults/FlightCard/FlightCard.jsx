@@ -29,7 +29,7 @@ const FlightCard = ({ flight }) => {
         <div className={styles.flightHeader}>
           <span className={styles.flightNumber}>{flight.flightNumber}</span>
           <span className={styles.airline}>{flight.airline}</span>
-          <span className={styles.price}>${flight.price}</span>
+          <span className={styles.price}>{flight.price}</span>
         </div>
         <div className={styles.flightDetails}>
           <div className={styles.route}>
