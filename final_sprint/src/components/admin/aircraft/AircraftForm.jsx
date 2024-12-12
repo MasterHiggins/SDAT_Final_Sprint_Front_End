@@ -1,18 +1,40 @@
-import { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
-import styles from './AircraftForm.module.css';
-import { aircraftApi } from '../../../api/services/aircraftSearch';
+import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import styles from "./AircraftForm.module.css";
+import { aircraftApi } from "../../../api/services/aircraftSearch";
+import { airlineApi } from "../../../api/services/airlineSearch"; // Add this import
 
-const AircraftForm = ({ aircraft, onClose, onSave })=> {
+const AircraftForm = ({ aircraft, onClose, onSave }) => {
   const [formData, setFormData] = useState({
-    type: 'Boeing 737',
-    capacity: '300'
+    model: "",
+    capacity: "",
+    airlineId: "",
   });
+  const [airlines, setAirlines] = useState([]);
 
+  // Separate useEffect for fetching airlines
+  useEffect(() => {
+    const fetchAirlines = async () => {
+      try {
+        const response = await airlineApi.getAll();
+        setAirlines(response.data);
+      } catch (error) {
+        console.error("Error fetching airlines:", error);
+        toast.error("Failed to load airlines");
+      }
+    };
+
+    fetchAirlines();
+  }, []); // Empty dependency array - only fetch once
+
+  // Separate useEffect for populating form data
   useEffect(() => {
     if (aircraft) {
-      const { status, ...aircraftData } = aircraft;
-      setFormData(aircraftData);
+      setFormData({
+        model: aircraft.model,
+        capacity: aircraft.capacity,
+        airlineId: aircraft.airlineId || "",
+      });
     }
   }, [aircraft]);
 
@@ -20,7 +42,7 @@ const AircraftForm = ({ aircraft, onClose, onSave })=> {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
   };
 
@@ -28,36 +50,37 @@ const AircraftForm = ({ aircraft, onClose, onSave })=> {
     e.preventDefault();
     try {
       if (aircraft) {
+        // Edit mode
         await aircraftApi.update(aircraft.id, formData);
-        toast.success('Aircraft updated successfully');
+        toast.success("Aircraft updated successfully");
       } else {
+        // Add mode
         await aircraftApi.create(formData);
-        toast.success('Aircraft created successfully');
+        toast.success("Aircraft created successfully");
       }
-      onSave();
+      onSave(); // Call onSave after successful operation
     } catch (error) {
-      console.error('Error saving aircraft:', error);
-      toast.error('Failed to save aircraft');
+      console.error("Error saving aircraft:", error);
+      toast.error("Failed to save aircraft");
     }
   };
 
   return (
     <div className={styles.formOverlay}>
       <div className={styles.formContainer}>
-        <h2>{aircraft ? 'Edit Aircraft' : 'Add New Aircraft'}</h2>
+        <h2>{aircraft ? "Edit Aircraft" : "Add New Aircraft"}</h2>
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
-            <label htmlFor="type">Aircraft Type</label>
+            <label htmlFor="model">Aircraft Model</label>
             <input
               type="text"
-              id="type"
-              name="type"
-              value={formData.type}
+              id="model"
+              name="model"
+              value={formData.model}
               onChange={handleChange}
               required
             />
           </div>
-          
           <div className={styles.formGroup}>
             <label htmlFor="capacity">Capacity</label>
             <input
@@ -69,19 +92,39 @@ const AircraftForm = ({ aircraft, onClose, onSave })=> {
               required
             />
           </div>
-
+          <div className={styles.formGroup}>
+            <label htmlFor="airlineId">Airline</label>
+            <select
+              id="airlineId"
+              name="airlineId"
+              value={formData.airlineId}
+              onChange={handleChange}
+              required
+            >
+              <option value="">Select an airline</option>
+              {airlines.map((airline) => (
+                <option key={airline.id} value={airline.id}>
+                  {airline.name}
+                </option>
+              ))}
+            </select>
+          </div>
           <div className={styles.formActions}>
-            <button type="button" onClick={onClose} className={styles.cancelButton}>
+            <button
+              type="button"
+              onClick={onClose}
+              className={styles.cancelButton}
+            >
               Cancel
             </button>
             <button type="submit" className={styles.submitButton}>
-              {aircraft ? 'Update Aircraft' : 'Add Aircraft'}
+              {aircraft ? "Update Aircraft" : "Add Aircraft"}
             </button>
           </div>
         </form>
       </div>
     </div>
   );
-}
+};
 
 export default AircraftForm;
