@@ -5,9 +5,7 @@ import { aircraftApi } from '../../../api/services/aircraftSearch';
 
 const AircraftForm = ({ aircraft, onClose, onSave })=> {
   const [formData, setFormData] = useState({
-    registration: '',
     type: '',
-    airline: '',
     capacity: ''
   });
 
@@ -49,18 +47,6 @@ const AircraftForm = ({ aircraft, onClose, onSave })=> {
         <h2>{aircraft ? 'Edit Aircraft' : 'Add New Aircraft'}</h2>
         <form onSubmit={handleSubmit}>
           <div className={styles.formGroup}>
-            <label htmlFor="registration">Registration Number</label>
-            <input
-              type="text"
-              id="registration"
-              name="registration"
-              value={formData.registration}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
-          <div className={styles.formGroup}>
             <label htmlFor="type">Aircraft Type</label>
             <input
               type="text"
@@ -71,19 +57,7 @@ const AircraftForm = ({ aircraft, onClose, onSave })=> {
               required
             />
           </div>
-
-          <div className={styles.formGroup}>
-            <label htmlFor="airline">Airline</label>
-            <input
-              type="text"
-              id="airline"
-              name="airline"
-              value={formData.airline}
-              onChange={handleChange}
-              required
-            />
-          </div>
-
+          
           <div className={styles.formGroup}>
             <label htmlFor="capacity">Capacity</label>
             <input
