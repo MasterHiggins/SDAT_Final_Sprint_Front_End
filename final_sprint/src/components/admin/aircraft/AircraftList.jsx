@@ -1,5 +1,5 @@
-import { FaEdit, FaTrash, FaCalendarAlt } from 'react-icons/fa';
-import styles from './AircraftList.module.css';
+import { FaEdit, FaTrash, FaCalendarAlt } from "react-icons/fa";
+import styles from "./AircraftList.module.css";
 
 function AircraftList({ aircraft, onEdit, onDelete }) {
   return (
@@ -17,11 +17,6 @@ function AircraftList({ aircraft, onEdit, onDelete }) {
             <tr key={aircraft.id}>
               <td>{aircraft.model}</td>
               <td>{aircraft.capacity}</td>
-              <td>
-                <span>
-                  {aircraft.status}
-                </span>
-              </td>
               <td className={styles.actions}>
                 <button
                   onClick={() => onEdit(aircraft)}

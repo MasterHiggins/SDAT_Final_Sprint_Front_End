@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react';
-import AircraftList from './AircraftList';
-import AircraftForm from './AircraftForm';
-import styles from './AircraftManagement.module.css';
-import { toast } from 'react-toastify';
-import { aircraftApi } from '../../../api/services/aircraftSearch';
+import { useState, useEffect } from "react";
+import AircraftList from "./AircraftList";
+import AircraftForm from "./AircraftForm";
+import styles from "./AircraftManagement.module.css";
+import { toast } from "react-toastify";
+import { aircraftApi } from "../../../api/services/aircraftSearch";
 
 const AircraftManagement = () => {
   const [aircraft, setAircraft] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [showForm, setShowForm] = useState(false);
+  const [showAddForm, setShowAddForm] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
   const [selectedAircraft, setSelectedAircraft] = useState(null);
 
   useEffect(() => {
@@ -20,8 +21,8 @@ const AircraftManagement = () => {
       const response = await aircraftApi.getAll();
       setAircraft(response.data);
     } catch (error) {
-      console.error('Error loading aircraft:', error);
-      toast.error('Failed to load aircraft');
+      console.error("Error loading aircraft:", error);
+      toast.error("Failed to load aircraft");
     } finally {
       setLoading(false);
     }
@@ -29,23 +30,23 @@ const AircraftManagement = () => {
 
   const handleAddAircraft = () => {
     setSelectedAircraft(null);
-    setShowForm(true);
+    setShowAddForm(true);
   };
 
   const handleEditAircraft = (aircraft) => {
     setSelectedAircraft(aircraft);
-    setShowForm(true);
+    setShowEditForm(true);
   };
 
   const handleDeleteAircraft = async (id) => {
-    if (window.confirm('Are you sure you want to delete this aircraft?')) {
+    if (window.confirm("Are you sure you want to delete this aircraft?")) {
       try {
         await aircraftApi.delete(id);
-        toast.success('Aircraft deleted successfully');
+        toast.success("Aircraft deleted successfully");
         await loadAircraft();
       } catch (error) {
-        console.error('Error deleting aircraft:', error);
-        toast.error('Failed to delete aircraft');
+        console.error("Error deleting aircraft:", error);
+        toast.error("Failed to delete aircraft");
       }
     }
   };
@@ -60,14 +61,25 @@ const AircraftManagement = () => {
           Add New Aircraft
         </button>
       </div>
-      
-      {showForm && (
+
+      {showAddForm && (
         <AircraftForm
           aircraft={selectedAircraft}
-          onClose={() => setShowForm(false)}
+          onClose={() => setShowAddForm(false)}
           onSave={() => {
             loadAircraft();
-            setShowForm(false);
+            setShowAddForm(false);
+          }}
+        />
+      )}
+
+      {showEditForm && (
+        <AircraftForm
+          aircraft={selectedAircraft}
+          onClose={() => setShowEditForm(false)}
+          onSave={() => {
+            loadAircraft();
+            setShowEditForm(false);
           }}
         />
       )}
@@ -79,6 +91,6 @@ const AircraftManagement = () => {
       />
     </div>
   );
-}
+};
 
 export default AircraftManagement;
