@@ -5,8 +5,8 @@ import { aircraftApi } from '../../../api/services/aircraftSearch';
 
 const AircraftForm = ({ aircraft, onClose, onSave })=> {
   const [formData, setFormData] = useState({
-    type: '',
-    capacity: ''
+    type: 'Boeing 737',
+    capacity: '300'
   });
 
   useEffect(() => {
