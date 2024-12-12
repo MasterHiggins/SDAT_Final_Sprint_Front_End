@@ -1,7 +1,5 @@
 import api from "../config/apiConfig";
 
-
-
 export const getPassengers = async () => {
   try {
     return await api.get("/passengers");
@@ -10,18 +8,17 @@ export const getPassengers = async () => {
   }
 };
 
-
-export const addPassenger = async (newPassenger)=>{
+export const addPassenger = async (newPassenger) => {
   try {
-      const res = await api.post("passengers",newPassenger,{
-          headers:{'Content-Type': 'application/json'},
-      })
-      return res.data                                                               
+    const res = await api.post("passengers", newPassenger, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return res.data;
   } catch (error) {
-      console.error('error when adding passenger', error)
-      throw error
+    console.error("error when adding passenger", error);
+    throw error;
   }
-}
+};
 
 export const getCities = async () => {
   try {
@@ -31,47 +28,42 @@ export const getCities = async () => {
   }
 };
 
-
-
-export const updatePassenger = async (id,newPassengerData)=>{
+export const updatePassenger = async (id, newPassengerData) => {
   try {
-      const res = await api.put(`passengers/${id}`,newPassengerData,{
-          headers:{'Content-Type': 'application/json'},
-      })
-      return res.data                                                               
+    const res = await api.put(`passengers/${id}`, newPassengerData, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return res.data;
   } catch (error) {
-      console.error('error when updating passenger', error)
-      throw error
+    console.error("error when updating passenger", error);
+    throw error;
   }
-}
+};
 
-
-export const deletePassenger = async (id)=>{
+export const deletePassenger = async (id) => {
   try {
-      const res = await api.delete(`passengers/${id}`,{
-          headers:{'Content-Type': 'application/json'},
-      })
-      return res.data                                                               
+    const res = await api.delete(`passengers/${id}`, {
+      headers: { "Content-Type": "application/json" },
+    });
+    return res.data;
   } catch (error) {
-      console.error('error when removing passenger', error)
-      throw error
+    console.error("error when removing passenger", error);
+    throw error;
   }
-}
+};
 
-
-
-export const getPassengerFlights = async (id)=>{
+export const getPassengerFlights = async (id) => {
   try {
-      const res = await api.get(`/passengers/${id}/aircraft`,{
-          headers:{'Content-Type': 'application/json'},
-      })
-      console.log(res.data)
-      return res                                                               
+    const res = await api.get(`/passengers/${id}/flights`, {
+      headers: { "Content-Type": "application/json" },
+    });
+    console.log(res.data);
+    return res;
   } catch (error) {
-    if(error.response && error.response.status === 404){
-      return[]
+    if (error.response && error.response.status === 404) {
+      return [];
     }
-      console.error('error when get passenger history', error)
-      throw error
+    console.error("error when get passenger history", error);
+    throw error;
   }
-}
+};
