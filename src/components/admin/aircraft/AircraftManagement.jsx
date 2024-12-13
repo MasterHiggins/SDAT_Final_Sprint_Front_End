@@ -4,6 +4,7 @@ import AircraftForm from "./AircraftForm";
 import styles from "./AircraftManagement.module.css";
 import { toast } from "react-toastify";
 import { aircraftApi } from "../../../api/services/aircraftSearch";
+import LoadingSpinner from "../../shared/LoadingSpinner/LoadingSpinner"; // Import LoadingSpinner
 
 const AircraftManagement = () => {
   const [aircraft, setAircraft] = useState([]);
@@ -66,7 +67,7 @@ const AircraftManagement = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <LoadingSpinner message="Loading aircraft..." />; // Use LoadingSpinner
 
   return (
     <div className={styles.container}>

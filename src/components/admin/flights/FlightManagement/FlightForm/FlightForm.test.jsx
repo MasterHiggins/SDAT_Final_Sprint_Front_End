@@ -1,7 +1,13 @@
 // FlightForm.test.jsx
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { BrowserRouter } from "react-router-dom";
 import FlightForm from "./FlightForm";
+
+// Wrapper component for router context
+const renderWithRouter = (ui) => {
+  return render(ui, { wrapper: BrowserRouter });
+};
 
 describe("FlightForm", () => {
   const mockOnClose = jest.fn();
@@ -25,7 +31,7 @@ describe("FlightForm", () => {
   });
 
   test("renders form with all fields", () => {
-    render(<FlightForm onClose={mockOnClose} onSave={mockOnSave} />);
+    renderWithRouter(<FlightForm onClose={mockOnClose} onSave={mockOnSave} />);
 
     expect(screen.getByLabelText(/airline/i)).toBeInTheDocument();
     expect(screen.getByLabelText(/aircraft/i)).toBeInTheDocument();
@@ -36,7 +42,7 @@ describe("FlightForm", () => {
   });
 
   test("displays aircraft capacity when aircraft is selected", () => {
-    render(
+    renderWithRouter(
       <FlightForm
         onClose={mockOnClose}
         onSave={mockOnSave}
@@ -49,7 +55,7 @@ describe("FlightForm", () => {
   });
 
   test("calls onClose when cancel button is clicked", () => {
-    render(<FlightForm onClose={mockOnClose} onSave={mockOnSave} />);
+    renderWithRouter(<FlightForm onClose={mockOnClose} onSave={mockOnSave} />);
 
     const cancelButton = screen.getByText(/cancel/i);
     fireEvent.click(cancelButton);
@@ -58,7 +64,7 @@ describe("FlightForm", () => {
   });
 
   test("calls onSave with form data when submitted", async () => {
-    render(<FlightForm onClose={mockOnClose} onSave={mockOnSave} />);
+    renderWithRouter(<FlightForm onClose={mockOnClose} onSave={mockOnSave} />);
 
     // Fill out form
     await userEvent.type(screen.getByLabelText(/flight number/i), "FL999");
