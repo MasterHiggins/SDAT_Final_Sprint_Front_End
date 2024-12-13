@@ -11,6 +11,19 @@ const FLIGHT_STATUSES = {
   COMPLETED: "Completed",
 };
 
+// Define status options with the correct casing
+const statusOptions = [
+  "Scheduled",
+  "Active",
+  "Delayed",
+  "Cancelled",
+  "Completed",
+];
+
+const formatDateTimeInput = (dateTimeString) => {
+  return dateTimeString ? dateTimeString.slice(0, 16) : "";
+};
+
 function FlightForm({ flight, onClose, onSave }) {
   const [formData, setFormData] = useState({
     flightNumber: "", // Make it editable
@@ -66,15 +79,16 @@ function FlightForm({ flight, onClose, onSave }) {
   useEffect(() => {
     if (flight) {
       setFormData({
-        airlineId: flight.airlineId,
-        aircraftId: flight.aircraftId,
-        departureAirportId: flight.departureAirportId,
-        arrivalAirportId: flight.arrivalAirportId,
-        departureGateId: flight.departureGateId,
-        arrivalGateId: flight.arrivalGateId,
-        departureTime: formatDateForInput(flight.departureTime),
-        arrivalTime: formatDateForInput(flight.arrivalTime),
-        status: flight.status,
+        flightNumber: flight.flightNumber || "",
+        airlineId: flight.airlineId || "",
+        aircraftId: flight.aircraftId || "",
+        departureAirportId: flight.departureAirportId || "",
+        arrivalAirportId: flight.arrivalAirportId || "",
+        departureGateId: flight.departureGateId || "",
+        arrivalGateId: flight.arrivalGateId || "",
+        departureTime: formatDateTimeInput(flight.departureTime),
+        arrivalTime: formatDateTimeInput(flight.arrivalTime),
+        status: flight.status || "Scheduled",
       });
     }
   }, [flight]);
@@ -95,37 +109,24 @@ function FlightForm({ flight, onClose, onSave }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError(null);
-    setSuccess(false);
 
-    // Validate flight number
-    if (!formData.flightNumber.trim()) {
-      setError("Flight number is required");
-      return;
-    }
+    // Use the formData.status directly as it now has the correct value
+    const payload = {
+      ...formData,
+    };
 
     try {
-      // Log payload for debugging
-      console.log("Submitting flight data:", formData);
-
-      const payload = {
-        ...formData,
-        flightNumber: formData.flightNumber.trim(),
-        // Add required fields
-        numberOfPassengers: 0, // Default value
-        status: FLIGHT_STATUSES[formData.status] || "Scheduled",
-      };
-
-      console.log("Final payload:", payload);
-      await flightFormService.createFlight(payload);
-      setSuccess(true);
-      setTimeout(() => {
-        onSave();
-        onClose();
-      }, 2000); // Close after showing success message
+      if (flight) {
+        // Update existing flight
+        await flightFormService.updateFlight(flight.flightId, payload);
+      } else {
+        // Create new flight
+        await flightFormService.createFlight(payload);
+      }
+      onSave();
+      onClose();
     } catch (error) {
       console.error("Error saving flight:", error);
-      setError(error.response?.data || "Failed to save flight");
     }
   };
 
@@ -136,6 +137,19 @@ function FlightForm({ flight, onClose, onSave }) {
           (a) => a.id === parseInt(formData.aircraftId)
         )
       : null;
+
+  useEffect(() => {
+    const fetchReferenceData = async () => {
+      try {
+        const data = await flightFormService.getReferenceData();
+        setReferenceData(data);
+      } catch (error) {
+        console.error("Error fetching reference data:", error);
+      }
+    };
+
+    fetchReferenceData();
+  }, []);
 
   if (loading) return <LoadingSpinner />;
 
@@ -155,7 +169,6 @@ function FlightForm({ flight, onClose, onSave }) {
                 name="airlineId"
                 value={formData.airlineId}
                 onChange={handleChange}
-                required
               >
                 <option value="">Select Airline</option>
                 {referenceData.airlines?.map((airline) => (
@@ -303,11 +316,11 @@ function FlightForm({ flight, onClose, onSave }) {
               onChange={handleChange}
               required
             >
-              <option value="SCHEDULED">Scheduled</option>
-              <option value="ACTIVE">Active</option>
-              <option value="DELAYED">Delayed</option>
-              <option value="CANCELLED">Cancelled</option>
-              <option value="COMPLETED">Completed</option>
+              {statusOptions.map((status) => (
+                <option key={status} value={status}>
+                  {status}
+                </option>
+              ))}
             </select>
           </div>
 

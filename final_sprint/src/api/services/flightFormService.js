@@ -52,6 +52,21 @@ const flightFormService = {
     }
   },
 
+  // Update flight
+  updateFlight: async (id, flightData) => {
+    try {
+      console.log("Updating flight with ID:", id);
+      const response = await api.put(
+        `/api/flight-management/flights/${id}`,
+        flightData
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error updating flight:", error);
+      throw error;
+    }
+  },
+
   // Helper methods
   getGatesForAirport: (referenceData, airportId) => {
     return referenceData.gatesByAirport[airportId] || [];
