@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import styles from "./AircraftForm.module.css";
 import { aircraftApi } from "../../../api/services/aircraftSearch";
-import { airlineApi } from "../../../api/services/airlineSearch"; // Add this import
+import { airlineApi } from "../../../api/services/airlineSearch";
 
 const AircraftForm = ({ aircraft, onClose, onSave }) => {
   const [formData, setFormData] = useState({
@@ -12,20 +12,33 @@ const AircraftForm = ({ aircraft, onClose, onSave }) => {
   });
   const [airlines, setAirlines] = useState([]);
 
-  // Separate useEffect for fetching airlines
   useEffect(() => {
     const fetchAirlines = async () => {
       try {
         const response = await airlineApi.getAll();
-        setAirlines(response.data);
+        // Debug log
+        console.log("Airlines Response:", response);
+
+        // Handle response data
+        const airlinesData = response.data || response;
+
+        if (!Array.isArray(airlinesData)) {
+          console.error("Invalid airlines data format:", airlinesData);
+          setAirlines([]);
+          toast.error("Failed to load airlines data");
+          return;
+        }
+
+        setAirlines(airlinesData);
       } catch (error) {
         console.error("Error fetching airlines:", error);
+        setAirlines([]);
         toast.error("Failed to load airlines");
       }
     };
 
     fetchAirlines();
-  }, []); // Empty dependency array - only fetch once
+  }, []);
 
   // Separate useEffect for populating form data
   useEffect(() => {
