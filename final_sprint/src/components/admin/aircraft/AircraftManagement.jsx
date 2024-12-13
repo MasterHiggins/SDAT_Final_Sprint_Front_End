@@ -19,9 +19,24 @@ const AircraftManagement = () => {
   const loadAircraft = async () => {
     try {
       const response = await aircraftApi.getAll();
-      setAircraft(response.data);
+      // Debug log
+      console.log("API Response:", response);
+
+      // Check if response.data exists, if not use response directly
+      const aircraftData = response.data || response;
+
+      // Validate that we have an array
+      if (!Array.isArray(aircraftData)) {
+        console.error("Invalid aircraft data format:", aircraftData);
+        setAircraft([]);
+        toast.error("Invalid data format received");
+        return;
+      }
+
+      setAircraft(aircraftData);
     } catch (error) {
       console.error("Error loading aircraft:", error);
+      setAircraft([]); // Set empty array on error
       toast.error("Failed to load aircraft");
     } finally {
       setLoading(false);

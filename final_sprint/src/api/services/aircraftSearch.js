@@ -1,10 +1,11 @@
-import axios from "axios";
+// aircraftSearch.js
+import api, { BASE_URL } from "../config/apiConfig";
 
-const BASE_URL = "http://localhost:8080/aircraft";
+const AIRCRAFT_ENDPOINT = "/aircraft";
 
 export const aircraftApi = {
-  getAll: () => axios.get(`${BASE_URL}`),
-  create: (data) => axios.post(`${BASE_URL}`, data),
-  update: (id, data) => axios.put(`${BASE_URL}/${id}`, data),
-  delete: (id) => axios.delete(`${BASE_URL}/${id}`),
+  getAll: () => api.get(AIRCRAFT_ENDPOINT),
+  create: (data) => api.post(AIRCRAFT_ENDPOINT, data),
+  update: (id, data) => api.put(`${AIRCRAFT_ENDPOINT}/${id}`, data),
+  delete: (id) => api.delete(`${AIRCRAFT_ENDPOINT}/${id}`),
 };
