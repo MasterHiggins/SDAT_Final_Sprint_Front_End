@@ -81,14 +81,21 @@ const EditAirport = ({ isOpen, onClose, onSave, airport }) => {
               />
             </div>
             <div className={styles.formGroup}>
-              <label>Airport City</label>
-              <input
-                type="text"
-                name="city"
-                value={airportData.city}
+              <label>City</label>
+              <select
+                className={styles.select}
+                name="cityId"
+                value={airportData.cityId}
                 onChange={handleInputChange}
                 required
-              />
+              >
+                <option value="">Select a city</option>
+                {cities.map((city) => (
+                  <option key={city.id} value={city.id}>
+                    {city.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </div>
           <div className={styles.actions}>
