@@ -11,7 +11,6 @@ const FLIGHT_STATUSES = {
   COMPLETED: "Completed",
 };
 
-// Define status options with the correct casing
 const statusOptions = [
   "Scheduled",
   "Active",
@@ -26,7 +25,7 @@ const formatDateTimeInput = (dateTimeString) => {
 
 function FlightForm({ flight, onClose, onSave }) {
   const [formData, setFormData] = useState({
-    flightNumber: "", // Make it editable
+    flightNumber: "",
     airlineId: "",
     aircraftId: "",
     departureAirportId: "",
@@ -47,7 +46,7 @@ function FlightForm({ flight, onClose, onSave }) {
 
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [success, setSuccess] = useState(false); // Add success state
+  const [success, setSuccess] = useState(false);
 
   const loadReferenceData = async () => {
     try {
@@ -72,7 +71,6 @@ function FlightForm({ flight, onClose, onSave }) {
     loadReferenceData();
   }, []);
 
-  // Add debug logging
   console.log("Current reference data:", referenceData);
   console.log("Loading state:", loading);
 
@@ -93,10 +91,10 @@ function FlightForm({ flight, onClose, onSave }) {
     }
   }, [flight]);
 
-  const formatDateForInput = (dateString) => {
-    if (!dateString) return "";
-    return new Date(dateString).toISOString().slice(0, 16);
-  };
+  // const formatDateForInput = (dateString) => {
+  //   if (!dateString) return "";
+  //   return new Date(dateString).toISOString().slice(0, 16);
+  // };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -110,7 +108,6 @@ function FlightForm({ flight, onClose, onSave }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Use the formData.status directly as it now has the correct value
     const payload = {
       ...formData,
     };
