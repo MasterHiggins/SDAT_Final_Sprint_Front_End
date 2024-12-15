@@ -1,7 +1,8 @@
 // apiConfig.js
 import axios from "axios";
 
-export const BASE_URL = "http://localhost:8080";
+export const BASE_URL =
+  "http://Aviation-Mangementv3-env.eba-qzqmmx3p.ca-central-1.elasticbeanstalk.com";
 
 const api = axios.create({
   baseURL: BASE_URL,
