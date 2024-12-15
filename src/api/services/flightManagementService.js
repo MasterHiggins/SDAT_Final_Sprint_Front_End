@@ -1,6 +1,5 @@
 import api from "../config/apiConfig";
 
-// Match backend enum cases exactly
 const FLIGHT_STATUSES = {
   SCHEDULED: "Scheduled",
   ACTIVE: "Active",

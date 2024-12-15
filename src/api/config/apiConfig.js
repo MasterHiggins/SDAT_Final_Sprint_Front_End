@@ -1,4 +1,3 @@
-// apiConfig.js
 import axios from "axios";
 
 export const BASE_URL =
@@ -16,7 +15,6 @@ const api = axios.create({
   },
 });
 
-// Request interceptor
 api.interceptors.request.use(
   (config) => {
     // Any request processing can be added here
@@ -27,7 +25,6 @@ api.interceptors.request.use(
   }
 );
 
-// Response interceptor
 api.interceptors.response.use(
   (response) => response.data,
   (error) => {

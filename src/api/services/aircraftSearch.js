@@ -1,4 +1,3 @@
-// aircraftSearch.js
 import api, { BASE_URL } from "../config/apiConfig";
 
 const AIRCRAFT_ENDPOINT = "/aircraft";

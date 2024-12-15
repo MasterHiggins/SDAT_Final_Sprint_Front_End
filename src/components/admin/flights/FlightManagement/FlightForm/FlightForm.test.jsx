@@ -1,10 +1,8 @@
-// FlightForm.test.jsx
 import { render, screen, fireEvent } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import FlightForm from "./FlightForm";
 
-// Wrapper component for router context
 const renderWithRouter = (ui) => {
   return render(ui, { wrapper: BrowserRouter });
 };

@@ -1,4 +1,3 @@
-// PassengerBookingService.js
 import api from "../config/apiConfig";
 
 export const checkExistingPassenger = async (
@@ -35,7 +34,6 @@ export const checkExistingPassenger = async (
   }
 };
 
-// In createPassenger function
 export const createPassenger = async (passengerData) => {
   try {
     console.log("Creating passenger with data:", passengerData);
@@ -88,7 +86,6 @@ export const bookFlight = async (passengerId, flightId) => {
   }
 };
 
-// In updatePassenger function
 export const updatePassenger = async (id, passengerData) => {
   try {
     const payload = {
