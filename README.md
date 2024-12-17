@@ -1,5 +1,7 @@
 # Flight Management System
 
+Live website: [AEROTRAQ](http://aviation-react-frontend.s3-website.ca-central-1.amazonaws.com/)
+
 A comprehensive flight management system built with React that allows administrators to manage flights, aircraft, airports and passengers while providing public flight search and booking capabilities.
 
 ## Features
